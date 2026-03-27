@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — QuantusData.ai</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a1628; --navy-mid: #112240; --navy-light: #1a3a6e;
+      --gold: #c9a84c; --gold-light: #e8c96a; --gold-dim: #8a6f32;
+      --white: #f8f9fc; --muted: #8892a4; --accent: #4a9eff;
+      --border: rgba(201,168,76,0.15); --card-bg: rgba(17,34,64,0.6);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--navy); color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 80px;
+      background: rgba(10,22,40,0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: baseline; gap: 2px; text-decoration: none; }
+    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--white); letter-spacing: -0.5px; }
+    .nav-brand-name span { color: var(--gold); }
+    .nav-brand-ext { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--gold); letter-spacing: 1px; }
+    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { background: var(--gold); color: var(--navy) !important; padding: 9px 24px; border-radius: 4px; font-weight: 600 !important; }
+
+    .page-header {
+      position: relative; z-index: 1;
+      padding: 160px 80px 80px; text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-label {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      color: var(--gold); letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 16px; display: block;
+    }
+    .page-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--white); font-weight: 400;
+      letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px;
+    }
+    .page-header h1 em { font-style: italic; color: var(--gold); }
+    .page-header p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; font-weight: 300; }
+
+    .wrap {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto; padding: 80px;
+    }
+    .section-border { border-top: 1px solid var(--border); }
+    .section-label {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      color: var(--gold); letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--white); font-weight: 400;
+      letter-spacing: -0.5px; margin-bottom: 14px; line-height: 1.2;
+    }
+    h2 em { font-style: italic; color: var(--gold); }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 80px; align-items: start;
+    }
+
+    .contact-info p {
+      color: var(--muted); font-size: 0.95rem;
+      line-height: 1.8; font-weight: 300; margin-bottom: 32px;
+    }
+
+    .contact-cards { display: grid; gap: 12px; }
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px; padding: 18px 22px;
+      display: flex; align-items: center; gap: 16px;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover { border-color: rgba(201,168,76,0.35); transform: translateX(4px); }
+    .contact-card-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .contact-card-label {
+      font-family: 'DM Mono', monospace; font-size: 0.58rem;
+      color: var(--gold); letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .contact-card h4 { font-size: 0.9rem; color: var(--white); font-weight: 500; }
+    .contact-card p { color: var(--muted); font-size: 0.8rem; margin: 0; font-weight: 300; }
+
+    .divider { width: 60px; height: 1px; background: linear-gradient(to right, var(--gold), transparent); margin: 20px 0 32px; }
+
+    /* Form */
+    .contact-form { display: grid; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: grid; gap: 6px; }
+    .form-label {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      color: var(--gold); letter-spacing: 2px; text-transform: uppercase;
+    }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(17,34,64,0.8);
+      border: 1px solid rgba(201,168,76,0.18);
+      color: var(--white); padding: 12px 16px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      border-radius: 4px; width: 100%;
+      transition: border-color 0.2s; outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(201,168,76,0.5); }
+    .form-select option { background: var(--navy-mid); }
+    .form-textarea { min-height: 130px; resize: vertical; font-weight: 300; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); font-weight: 300; }
+
+    .btn-gold {
+      background: var(--gold); color: var(--navy);
+      padding: 14px 36px; border-radius: 4px;
+      font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; display: inline-block;
+      border: none; cursor: pointer; width: 100%;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 32px 80px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand-name { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--white); }
+    .footer-brand-name span { color: var(--gold); }
+    footer p { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 1px; }
+
+    @media (max-width: 960px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .page-header { padding: 120px 24px 60px; }
+      .wrap { padding: 60px 24px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 24px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-name">Quantus<span>Data</span></span>
+      <span class="nav-brand-ext">.ai</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#tools">Tools</a></li>
+      <li><a href="index.html#why">Why QuantusData</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <span class="page-label">Contact Us</span>
+    <h1>Let's Talk About<br><em>Your Data Needs</em></h1>
+    <p>Whether you need Professional access, a Business plan, or a custom AI tool built — we're ready to help.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <div class="contact-info">
+        <span class="section-label">Get In Touch</span>
+        <h2>We're Here to <em>Help</em></h2>
+        <div class="divider"></div>
+        <p>Reach out for plan inquiries, custom tool requests, demos, or any questions about QuantusData's AI analysis platform. Our team responds within 24-48 hours.</p>
+
+        <div class="contact-cards">
+          <a href="mailto:existentialgateway@gmail.com" class="contact-card">
+            <span class="contact-card-icon">📧</span>
+            <div>
+              <p class="contact-card-label">Email</p>
+              <h4>existentialgateway@gmail.com</h4>
+              <p>General inquiries and plan questions</p>
+            </div>
+          </a>
+          <a href="https://existentialgateway.com" target="_blank" class="contact-card">
+            <span class="contact-card-icon">🌐</span>
+            <div>
+              <p class="contact-card-label">Parent Company</p>
+              <h4>Existential Gateway, LLC</h4>
+              <p>existentialgateway.com</p>
+            </div>
+          </a>
+          <a href="https://tiktok.com/@Maerox21" target="_blank" class="contact-card">
+            <span class="contact-card-icon">🎵</span>
+            <div>
+              <p class="contact-card-label">TikTok</p>
+              <h4>@Maerox21</h4>
+              <p>150,000+ followers · AI & Data content</p>
+            </div>
+          </a>
+          <a href="https://x.com/Maerox" target="_blank" class="contact-card">
+            <span class="contact-card-icon">𝕏</span>
+            <div>
+              <p class="contact-card-label">X (Twitter)</p>
+              <h4>@Maerox</h4>
+              <p>Tech, finance, and data insights</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <span class="section-label">Send a Message</span>
+        <h2>Tell Us What You <em>Need</em></h2>
+        <div class="divider"></div>
+        <form class="contact-form" action="mailto:existentialgateway@gmail.com" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-input" placeholder="First name" name="firstname" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-input" placeholder="Last name" name="lastname" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Business Email</label>
+            <input type="email" class="form-input" placeholder="you@company.com" name="email" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company / Organization</label>
+            <input type="text" class="form-input" placeholder="Your company name" name="company" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">I'm Interested In</label>
+            <select class="form-select" name="interest">
+              <option value="">Select an option...</option>
+              <option>Professional Plan — $79/month</option>
+              <option>Business Plan — $799/month</option>
+              <option>Custom AI Tool — $499 one-time</option>
+              <option>Demo / More Information</option>
+              <option>Partnership Inquiry</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tell Us About Your Needs</label>
+            <textarea class="form-textarea" placeholder="Describe your data analysis needs, industry, or what you'd like us to build..." name="message"></textarea>
+          </div>
+          <button type="submit" class="btn-gold">Send Message</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <span class="footer-brand-name">Quantus<span>Data</span>.ai</span>
+    </div>
+    <p>© 2026 QuantusData.ai — A Division of Existential Gateway, LLC. All Rights Reserved.</p>
+    <p>Powered by Existential Gateway, LLC</p>
+  </footer>
+</body>
+</html>
