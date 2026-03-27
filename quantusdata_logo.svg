@@ -1,0 +1,33 @@
+<svg width="600" height="240" viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="240" fill="#0a1628"/>
+
+  <!-- Q with data bars icon -->
+  <g transform="translate(40, 30)">
+    <circle cx="90" cy="88" r="75" fill="none" stroke="#c9a84c" stroke-width="10"/>
+    <rect x="34"  y="108" width="16" height="30" fill="#c9a84c" opacity="0.5" rx="2"/>
+    <rect x="56"  y="88"  width="16" height="50" fill="#c9a84c" opacity="0.7" rx="2"/>
+    <rect x="78"  y="62"  width="16" height="76" fill="#c9a84c" opacity="1"   rx="2"/>
+    <rect x="100" y="78"  width="16" height="60" fill="#c9a84c" opacity="0.7" rx="2"/>
+    <rect x="122" y="98"  width="16" height="40" fill="#c9a84c" opacity="0.5" rx="2"/>
+    <line x1="28" y1="138" x2="148" y2="138" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+    <circle cx="90" cy="88" r="65" fill="none" stroke="#0a1628" stroke-width="8"/>
+    <circle cx="90" cy="88" r="75" fill="none" stroke="#c9a84c" stroke-width="10"/>
+    <line x1="138" y1="134" x2="168" y2="166" stroke="#c9a84c" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="255" y="108" font-family="Georgia, 'Times New Roman', serif"
+        font-size="58" fill="#f8f9fc" letter-spacing="-2">Quantus</text>
+  <text x="255" y="170" font-family="Georgia, 'Times New Roman', serif"
+        font-size="58" fill="#c9a84c" letter-spacing="-2">Data<tspan
+        font-family="'Courier New', monospace" font-size="26"
+        fill="#c9a84c" dy="-8" dx="5" opacity="0.9">.ai</tspan></text>
+
+  <!-- Tagline -->
+  <text x="257" y="204" font-family="'Courier New', monospace" font-size="12"
+        fill="#8892a4" letter-spacing="5">DATA INTELLIGENCE PLATFORM</text>
+
+  <!-- Powered by -->
+  <text x="257" y="226" font-family="'Courier New', monospace" font-size="10"
+        fill="#8892a4" letter-spacing="2" opacity="0.6">Powered by Existential Gateway, LLC</text>
+</svg>
