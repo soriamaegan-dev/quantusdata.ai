@@ -31,14 +31,11 @@
       background: rgba(10,22,40,0.92); backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
-    .nav-brand { display: flex; align-items: baseline; gap: 2px; text-decoration: none; }
-    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--white); letter-spacing: -0.5px; }
-    .nav-brand-name span { color: var(--gold); }
-    .nav-brand-ext { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--gold); letter-spacing: 1px; }
-    .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--white); }
-    .nav-cta { background: var(--gold); color: var(--navy) !important; padding: 9px 24px; border-radius: 4px; font-weight: 600 !important; }
+    
+    
+    
+    
+    
 
     .page-header {
       position: relative; z-index: 1;
@@ -151,31 +148,128 @@
     .footer-brand-name span { color: var(--gold); }
     footer p { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 1px; }
 
-    @media (max-width: 960px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
-      .page-header { padding: 120px 24px 60px; }
+    
       .wrap { padding: 60px 24px; }
       .contact-grid { grid-template-columns: 1fr; gap: 40px; }
       .form-row { grid-template-columns: 1fr; }
       footer { padding: 24px; flex-direction: column; text-align: center; }
     }
+
+    /* Hamburger menu */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;
+      padding: 14px 40px;
+      background: rgba(10,22,40,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 1; min-width: 0; }
+    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #f8f9fc; letter-spacing: -0.5px; }
+    .nav-brand-name span { color: #c9a84c; }
+    .nav-brand-ext { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #c9a84c; letter-spacing: 1px; }
+    .hamburger {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 5px; cursor: pointer; padding: 10px 12px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px; z-index: 101;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: #c9a84c; border-radius: 2px; transition: all 0.3s;
+    }
+    .dropdown-menu {
+      position: fixed;
+      top: 61px; right: 0;
+      width: 260px;
+      background: rgba(10,22,40,0.98);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      border-radius: 0 0 0 8px;
+      padding: 12px 0;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      box-shadow: -4px 4px 24px rgba(0,0,0,0.4);
+    }
+    .dropdown-menu.open { display: flex; }
+    .dropdown-menu a {
+      color: #8892a4; text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(201,168,76,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover { color: #f8f9fc; background: rgba(201,168,76,0.05); }
+    .dropdown-menu a.menu-dashboard { color: #8892a4; }
+    .dropdown-menu a.menu-cta {
+      background: #c9a84c; color: #0a1628 !important;
+      font-weight: 700; text-align: center;
+      margin: 8px 16px; border-radius: 4px;
+      border-bottom: none; padding: 10px 24px;
+    }
+    .dropdown-menu a.menu-cta:hover { background: #e8c96a; }
+
   </style>
 </head>
 <body>
   <nav>
     <a href="index.html" class="nav-brand">
+      <svg width="34" height="34" viewBox="0 0 180 180">
+        <circle cx="90" cy="88" r="75" fill="none" stroke="#c9a84c" stroke-width="14"/>
+        <rect x="34" y="108" width="18" height="30" fill="#c9a84c" opacity="0.6" rx="2"/>
+        <rect x="56" y="88"  width="18" height="50" fill="#c9a84c" opacity="0.8" rx="2"/>
+        <rect x="78" y="62"  width="18" height="76" fill="#c9a84c" opacity="1"   rx="2"/>
+        <rect x="100" y="78" width="18" height="60" fill="#c9a84c" opacity="0.8" rx="2"/>
+        <rect x="122" y="98" width="18" height="40" fill="#c9a84c" opacity="0.6" rx="2"/>
+        <line x1="138" y1="134" x2="170" y2="168" stroke="#c9a84c" stroke-width="14" stroke-linecap="round"/>
+      </svg>
       <span class="nav-brand-name">Quantus<span>Data</span></span>
       <span class="nav-brand-ext">.ai</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html#tools">Tools</a></li>
-      <li><a href="index.html#why">Why QuantusData</a></li>
-      <li><a href="index.html#pricing">Pricing</a></li>
-      <li><a href="contact.html" class="active">Contact</a></li>
-      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
-    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
   </nav>
+
+  <div class="dropdown-menu" id="dropdown-menu">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="contact.html" style="color:#c9a84c;font-weight:600;">Contact</a>
+    <a href="dashboard.html" class="menu-dashboard">My Dashboard</a>
+    <a href="index.html#pricing" class="menu-cta">Get Started</a>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('dropdown-menu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      var menu = document.getElementById('dropdown-menu');
+      var btn = document.querySelector('.hamburger');
+      if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+  </script>
 
   <div class="page-header">
     <span class="page-label">Contact Us</span>
@@ -184,52 +278,8 @@
   </div>
 
   <div class="wrap">
-    <div class="contact-grid">
-
-      <div class="contact-info">
-        <span class="section-label">Get In Touch</span>
-        <h2>We're Here to <em>Help</em></h2>
-        <div class="divider"></div>
-        <p>Reach out for plan inquiries, custom tool requests, demos, or any questions about QuantusData's AI analysis platform. Our team responds within 24-48 hours.</p>
-
-        <div class="contact-cards">
-          <a href="/cdn-cgi/l/email-protection#4e2b36273d3a2b203a272f22292f3a2b392f370e29232f2722602d2123" class="contact-card">
-            <span class="contact-card-icon">📧</span>
-            <div>
-              <p class="contact-card-label">Email</p>
-              <h4><span class="__cf_email__" data-cfemail="abced3c2d8dfcec5dfc2cac7cccadfcedccad2ebccc6cac2c785c8c4c6">[email&#160;protected]</span></h4>
-              <p>General inquiries and plan questions</p>
-            </div>
-          </a>
-          <a href="https://existentialgateway.com" target="_blank" class="contact-card">
-            <span class="contact-card-icon">🌐</span>
-            <div>
-              <p class="contact-card-label">Parent Company</p>
-              <h4>Existential Gateway, LLC</h4>
-              <p>existentialgateway.com</p>
-            </div>
-          </a>
-          <a href="https://tiktok.com/@Maerox21" target="_blank" class="contact-card">
-            <span class="contact-card-icon">🎵</span>
-            <div>
-              <p class="contact-card-label">TikTok</p>
-              <h4>@Maerox21</h4>
-              <p>150,000+ followers · AI & Data content</p>
-            </div>
-          </a>
-          <a href="https://x.com/Maerox" target="_blank" class="contact-card">
-            <span class="contact-card-icon">𝕏</span>
-            <div>
-              <p class="contact-card-label">X (Twitter)</p>
-              <h4>@Maerox</h4>
-              <p>Tech, finance, and data insights</p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div>
-        <span class="section-label">Send a Message</span>
+    <div>
+      <span class="section-label">Send a Message</span>
         <h2>Tell Us What You <em>Need</em></h2>
         <div class="divider"></div>
         <form class="contact-form" action="mailto:existentialgateway@gmail.com" method="post" enctype="text/plain">
@@ -269,8 +319,6 @@
           </div>
           <button type="submit" class="btn-gold">Send Message</button>
         </form>
-      </div>
-
     </div>
   </div>
 

@@ -72,61 +72,17 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .nav-brand {
-      display: flex;
-      align-items: baseline;
-      gap: 2px;
-      text-decoration: none;
-    }
+    
 
-    .nav-brand-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem;
-      color: var(--white);
-      letter-spacing: -0.5px;
-    }
+    
 
-    .nav-brand-name span { color: var(--gold); }
+    
 
-    .nav-brand-ext {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--gold);
-      letter-spacing: 1px;
-    }
+    
 
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-      align-items: center;
-    }
+    
 
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--white); }
-
-    .nav-cta {
-      background: var(--gold);
-      color: var(--navy) !important;
-      padding: 9px 24px;
-      border-radius: 4px;
-      font-weight: 600 !important;
-      font-size: 0.875rem !important;
-      transition: background 0.2s, transform 0.2s !important;
-    }
-
-    .nav-cta:hover {
-      background: var(--gold-light) !important;
-      transform: translateY(-1px);
-    }
+    
 
     /* ── Hero ── */
     #hero {
@@ -632,17 +588,19 @@
     }
 
     .why-card {
-      padding: 32px 0;
-      border-top: 2px solid var(--border);
-      transition: border-color 0.3s;
+      padding: 32px 24px;
+      border-top: 2px solid rgba(201,168,76,0.25);
+      border-radius: 0 0 8px 8px;
+      background: rgba(17,34,64,0.4);
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
     }
 
-    .why-card:hover { border-color: var(--gold); }
+    .why-card:hover { border-color: var(--gold); background: rgba(17,34,64,0.7); transform: translateY(-4px); }
 
     .why-number {
       font-family: 'DM Serif Display', serif;
       font-size: 3rem;
-      color: rgba(201,168,76,0.15);
+      color: rgba(201,168,76,0.4);
       line-height: 1;
       margin-bottom: 16px;
       display: block;
@@ -650,16 +608,17 @@
 
     .why-card h3 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: var(--white);
+      font-size: 1.3rem;
+      color: #f8f9fc;
       margin-bottom: 10px;
       font-weight: 400;
+      letter-spacing: -0.3px;
     }
 
     .why-card p {
-      color: var(--muted);
-      font-size: 0.875rem;
-      line-height: 1.7;
+      color: #b0bac8;
+      font-size: 0.95rem;
+      line-height: 1.8;
       font-weight: 300;
     }
 
@@ -780,7 +739,6 @@
     /* ── Responsive ── */
     @media (max-width: 1024px) {
       nav { padding: 16px 24px; }
-      .nav-links { display: none; }
       #hero { padding: 120px 24px 80px; }
       .section { padding: 60px 24px; }
       .tools-grid { grid-template-columns: repeat(2, 1fr); }
@@ -799,7 +757,145 @@
       .metrics-strip { gap: 24px; }
       .metric-divider { display: none; }
     }
-  </style>
+
+    /* Hamburger menu */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;
+      padding: 14px 40px;
+      background: rgba(10,22,40,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 1; min-width: 0; }
+    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #f8f9fc; letter-spacing: -0.5px; }
+    .nav-brand-name span { color: #c9a84c; }
+    .nav-brand-ext { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #c9a84c; letter-spacing: 1px; }
+    .hamburger {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 5px; cursor: pointer; padding: 10px 12px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px; z-index: 101;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: #c9a84c; border-radius: 2px; transition: all 0.3s;
+    }
+    .dropdown-menu {
+      position: fixed;
+      top: 61px; right: 0;
+      width: 260px;
+      background: rgba(10,22,40,0.98);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      border-radius: 0 0 0 8px;
+      padding: 12px 0;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      box-shadow: -4px 4px 24px rgba(0,0,0,0.4);
+    }
+    .dropdown-menu.open { display: flex; }
+    .dropdown-menu a {
+      color: #8892a4; text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(201,168,76,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover { color: #f8f9fc; background: rgba(201,168,76,0.05); }
+    .dropdown-menu a.menu-dashboard { color: #8892a4; }
+    .dropdown-menu a.menu-cta {
+      background: #c9a84c; color: #0a1628 !important;
+      font-weight: 700; text-align: center;
+      margin: 8px 16px; border-radius: 4px;
+      border-bottom: none; padding: 10px 24px;
+    }
+    .dropdown-menu a.menu-cta:hover { background: #e8c96a; }
+
+  
+    .why-card {
+      padding: 32px 24px !important;
+      border-top: 2px solid rgba(201,168,76,0.4) !important;
+      background: rgba(17,34,64,0.5) !important;
+      border-radius: 8px !important;
+      transition: all 0.3s !important;
+    }
+    .why-card:hover {
+      border-color: #c9a84c !important;
+      background: rgba(26,58,110,0.6) !important;
+      transform: translateY(-6px) !important;
+    }
+    .why-number {
+      font-size: 3.5rem !important;
+      color: rgba(201,168,76,0.5) !important;
+      font-weight: 900 !important;
+    }
+    .why-card h3 {
+      font-size: 1.4rem !important;
+      color: #ffffff !important;
+      font-weight: 600 !important;
+      letter-spacing: -0.3px !important;
+      margin-bottom: 12px !important;
+    }
+    .why-card p {
+      color: #c8d3e0 !important;
+      font-size: 1rem !important;
+      line-height: 1.8 !important;
+    }
+
+    #hero h1 {
+      font-size: clamp(3.5rem, 8vw, 6.5rem) !important;
+      letter-spacing: -2px !important;
+      line-height: 1.0 !important;
+    }
+    .hero-label {
+      font-size: 0.8rem !important;
+      letter-spacing: 5px !important;
+      padding: 8px 24px !important;
+      background: rgba(201,168,76,0.12) !important;
+      border: 1px solid rgba(201,168,76,0.4) !important;
+      color: #e8c96a !important;
+    }
+    .hero-subtitle {
+      font-size: 1rem !important;
+      letter-spacing: 5px !important;
+      color: rgba(201,168,76,0.7) !important;
+      margin-bottom: 24px !important;
+    }
+    .hero-desc {
+      font-size: 1.2rem !important;
+      color: #c8d3e0 !important;
+      max-width: 640px !important;
+      line-height: 1.9 !important;
+    }
+    .metric-value {
+      font-size: 3rem !important;
+      color: #e8c96a !important;
+    }
+    .metric-label {
+      font-size: 0.75rem !important;
+      color: #b0bac8 !important;
+      letter-spacing: 3px !important;
+    }
+</style>
 </head>
 <body>
 
@@ -819,21 +915,39 @@
         <span class="nav-brand-ext">.ai</span>
       </div>
     </a>
-    <ul class="nav-links">
-      <li><a href="tools.html">Tools</a></li>
-      <li><a href="#why">Why QuantusData</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
-    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
   </nav>
+
+  <div class="dropdown-menu" id="dropdown-menu">
+    <a href="index.html" style="color:#c9a84c;font-weight:600;">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <a href="dashboard.html" class="menu-dashboard">My Dashboard</a>
+    <a href="index.html#pricing" class="menu-cta">Get Started</a>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('dropdown-menu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      var menu = document.getElementById('dropdown-menu');
+      var btn = document.querySelector('.hamburger');
+      if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+  </script>
 
   <!-- Hero -->
   <section id="hero">
     <span class="hero-label">Data Intelligence Platform</span>
     <h1>AI Analysis Tools for<br><em>Professionals & Businesses</em></h1>
     <p class="hero-subtitle">Quantusdata.ai — Where Data Meets Intelligence</p>
-    <p class="hero-desc">Production-grade AI-powered analysis tools built for professionals who need real answers — fast, accurate, and actionable across 15 industry domains.</p>
+    <p class="hero-desc">Production-grade AI-powered analysis tools built for professionals who need real answers — fast, accurate, and actionable.</p>
     <div class="hero-actions">
       <a href="#pricing" class="btn-gold">View Plans</a>
       <a href="#tools" class="btn-outline">Explore Tools</a>
@@ -859,38 +973,38 @@
   <!-- Why QuantusData -->
   <div class="section section-border" id="why">
     <span class="section-label">Why QuantusData™</span>
-    <h2>Intelligence Built for<br><em>Real-World Decisions</em></h2>
+    <h2 style="font-size:clamp(2.5rem,5vw,3.8rem);">Intelligence Built for<br><em>Real-World Decisions</em></h2>
     <p class="section-desc">QuantusData combines cutting-edge AI with domain expertise to deliver analysis that professionals can actually use.</p>
 
     <div class="why-grid">
       <div class="why-card">
         <span class="why-number">01</span>
-        <h3>Domain-Specific Intelligence</h3>
+        <h3>Domain-Specific <em style="font-style:italic;color:#c9a84c;">Intelligence</em></h3>
         <p>Each tool is purpose-built for its industry — not a generic chatbot. Our AI understands insurance arbitration, medical billing, legal contracts, and financial ratios at an expert level.</p>
       </div>
       <div class="why-card">
         <span class="why-number">02</span>
-        <h3>File Upload & Document Analysis</h3>
+        <h3>File Upload & Document <em style="font-style:italic;color:#c9a84c;">Analysis</em></h3>
         <p>Upload PDFs, CSVs, Excel files, and images directly into the analysis workflow. Our AI reads your documents and incorporates them into every analysis tab automatically.</p>
       </div>
       <div class="why-card">
         <span class="why-number">03</span>
-        <h3>Actionable Reports</h3>
+        <h3><em style="font-style:italic;color:#c9a84c;">Actionable</em> Reports</h3>
         <p>Every tool generates professional PDF and PowerPoint reports ready for presentations, client deliverables, arbitration hearings, and executive briefings.</p>
       </div>
       <div class="why-card">
         <span class="why-number">04</span>
-        <h3>Always On, Always Fast</h3>
+        <h3>Always On, <em style="font-style:italic;color:#c9a84c;">Always Fast</em></h3>
         <p>Hosted on dedicated infrastructure with 99.9% uptime. No sleep delays, no cold starts. Your tools are ready the moment you need them.</p>
       </div>
       <div class="why-card">
         <span class="why-number">05</span>
-        <h3>Live Data Integration</h3>
+        <h3><em style="font-style:italic;color:#c9a84c;">Live</em> Data Integration</h3>
         <p>Real-time data from US Treasury API, Yahoo Finance, NOAA, FOREX feeds, and more — automatically incorporated into your analysis without manual data entry.</p>
       </div>
       <div class="why-card">
         <span class="why-number">06</span>
-        <h3>Custom Tool Development</h3>
+        <h3>Custom Tool <em style="font-style:italic;color:#c9a84c;">Development</em></h3>
         <p>Need a tool built for your specific workflow? Our team designs and deploys custom AI analyzers tailored to your exact specifications in 7-14 business days.</p>
       </div>
     </div>
@@ -907,61 +1021,61 @@
         <span class="tool-item-icon">🛡️⚖️</span>
         <h3>Insurance Arbitration Assistant</h3>
         <p>Liability reconstruction, repair estimates, rental disputes, total loss, bodily injury analysis.</p>
-        <span class="tool-item-tag">6 Tabs · Professional</span>
+        
       </a>
       <a href="https://insurance.existentialgateway.com" target="_blank" class="tool-item">
         <span class="tool-item-icon">🛡️</span>
         <h3>Insurance Data Analyzer</h3>
         <p>Claims analysis, fraud detection, loss ratio tracking, underwriting, and risk scoring.</p>
-        <span class="tool-item-tag">8 Tabs · Professional</span>
+        
       </a>
       <a href="https://healthcare.existentialgateway.com" target="_blank" class="tool-item">
         <span class="tool-item-icon">🏥</span>
         <h3>Healthcare & Medical Analyzer</h3>
         <p>HIPAA-aware clinical analysis, disease patterns, medical billing audit, patient outcomes.</p>
-        <span class="tool-item-tag">8 Tabs · Professional</span>
+        
       </a>
       <a href="https://legal.existentialgateway.com" target="_blank" class="tool-item">
         <span class="tool-item-icon">⚖️</span>
         <h3>Legal & Law Firm Analyzer</h3>
         <p>Contract analysis, case outcome prediction, multi-document research, deposition review.</p>
-        <span class="tool-item-tag">8 Tabs · Professional</span>
+        
       </a>
       <a href="https://financial.existentialgateway.com" target="_blank" class="tool-item">
         <span class="tool-item-icon">💹</span>
         <h3>Financial & Market Analyzer</h3>
         <p>Market trends, portfolio risk, financial ratios, fraud detection, economic indicators.</p>
-        <span class="tool-item-tag">8 Tabs · Professional</span>
+        
       </a>
       <a href="https://investment.existentialgateway.com" target="_blank" class="tool-item">
         <span class="tool-item-icon">💼</span>
         <h3>Investment Analyzer</h3>
         <p>Stocks, crypto, ETFs, and 7 prediction market platforms including Polymarket and Kalshi.</p>
-        <span class="tool-item-tag">8 Tabs · Professional</span>
+        
       </a>
       <a href="https://realestate.existentialgateway.com" target="_blank" class="tool-item">
         <span class="tool-item-icon">🏠</span>
         <h3>Real Estate Analyzer</h3>
         <p>AVM property valuation, investment ROI, rental yield projections, 10-year forecasts.</p>
-        <span class="tool-item-tag">8 Tabs · Professional</span>
+        
       </a>
       <a href="https://retail.existentialgateway.com" target="_blank" class="tool-item">
         <span class="tool-item-icon">🛒</span>
         <h3>Retail & E-Commerce Analyzer</h3>
         <p>RFM segmentation, churn prediction, price optimization, customer lifetime value.</p>
-        <span class="tool-item-tag">8 Tabs · Professional</span>
+        
       </a>
-      <a href="https://education.existentialgateway.com" target="_blank" class="tool-item">
+      <div class="tool-item" style="cursor:pointer;" onclick="window.open('https://education.existentialgateway.com','_blank')">
         <span class="tool-item-icon">🎓</span>
         <h3>Education Analyzer</h3>
         <p>Student performance EDA, 4 ML models, dropout risk prediction, curriculum analysis.</p>
-        <span class="tool-item-tag">8 Tabs · Professional</span>
-      </a>
+        <a href="/samples/education_sample.pdf" target="_blank" onclick="event.stopPropagation();" style="display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-family:DM Mono,monospace;font-size:0.65rem;color:#0a1628;letter-spacing:2px;text-decoration:none;padding:7px 16px;border-radius:4px;background:linear-gradient(135deg,#c9a84c,#e8c96a);font-weight:700;box-shadow:0 2px 12px rgba(201,168,76,0.35);">👀 VIEW SAMPLE ANALYSIS</a>
+      </div>
       <a href="https://crime.existentialgateway.com" target="_blank" class="tool-item">
         <span class="tool-item-icon">🚔</span>
         <h3>Crime & Law Enforcement Analyzer</h3>
         <p>Predictive crime mapping, case correlation, recidivism scoring, report analysis.</p>
-        <span class="tool-item-tag">8 Tabs · Professional</span>
+        
       </a>
 
 
@@ -994,12 +1108,13 @@
           <li>Live data integration</li>
           <li>Text context input on every tab</li>
           <li>Email support (48hr response)</li>
+          <li>Cancel anytime</li>
           <li class="unavail">Access to all tools</li>
           <li class="unavail">Custom tool development</li>
           <li class="unavail">Priority support</li>
           <li class="unavail">Early access to new tools</li>
         </ul>
-        <a href="contact.html" class="plan-btn plan-btn-outline">Get Started</a>
+        <a href="https://buy.stripe.com/7sY4gA8XiaSWdLZ50n63K00" target="_blank" class="plan-btn plan-btn-outline">Get Started</a>
       </div>
 
       <!-- Professional -->
@@ -1018,11 +1133,12 @@
           <li>Live data integration</li>
           <li>Text context input on every tab</li>
           <li>Email support (48hr response)</li>
+          <li>Cancel anytime</li>
           <li class="unavail">Priority support 24hr response</li>
           <li class="unavail">Custom tool development</li>
           <li class="unavail">1 custom AI tool per year</li>
         </ul>
-        <a href="contact.html" class="plan-btn plan-btn-outline">Join Waitlist</a>
+        <a href="https://buy.stripe.com/7sYdRa3CYaSWgYb9gD63K01" target="_blank" class="plan-btn plan-btn-gold">Get Started</a>
       </div>
 
       <!-- Business -->
@@ -1044,7 +1160,7 @@
           <li>Priority support (24hr response)</li>
           <li>Cancel anytime</li>
         </ul>
-        <a href="contact.html" class="plan-btn plan-btn-gold">Contact Us</a>
+        <a href="https://buy.stripe.com/28EeVea1m5yCazNakH63K02" target="_blank" class="plan-btn plan-btn-outline">Get Started</a>
       </div>
 
     </div>
@@ -1087,31 +1203,17 @@
       <div class="footer-col">
         <h4>Tools</h4>
         <ul>
-          <li><a href="https://arbitration.existentialgateway.com" target="_blank">Insurance Arbitration</a></li>
-          <li><a href="https://insurance.existentialgateway.com" target="_blank">Insurance Data</a></li>
-          <li><a href="https://healthcare.existentialgateway.com" target="_blank">Healthcare</a></li>
-          <li><a href="https://legal.existentialgateway.com" target="_blank">Legal</a></li>
-          <li><a href="https://financial.existentialgateway.com" target="_blank">Financial</a></li>
-          <li><a href="https://existentialgateway.com/tools.html" target="_blank">View All Tools →</a></li>
-        </ul>
+          </ul>
       </div>
       <div class="footer-col">
         <h4>Plans</h4>
         <ul>
-          <li><a href="#pricing">Professional — $79/mo</a></li>
-          <li><a href="#pricing">Business — $199/mo</a></li>
-          <li><a href="#pricing"></a></li>
-          <li><a href="https://existentialgateway.com/pricing.html" target="_blank">Free & Pro Plans →</a></li>
-        </ul>
+          </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="https://existentialgateway.com/about.html" target="_blank">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="https://existentialgateway.com/terms.html" target="_blank">Terms of Service</a></li>
-          <li><a href="https://existentialgateway.com" target="_blank">Existential Gateway</a></li>
-        </ul>
+          </ul>
       </div>
     </div>
     <div class="footer-bottom">

@@ -1,566 +1,541 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Analysis Tools — QuantusData™.ai</title>
+  <meta name="description" content="Professional AI-powered analysis tools for insurance, healthcare, legal, financial, real estate, retail, education, and crime analysis." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' fill='%230a1628'/><circle cx='90' cy='88' r='72' fill='none' stroke='%23c9a84c' stroke-width='14'/><rect x='34' y='108' width='18' height='30' fill='%23c9a84c' opacity='0.6' rx='2'/><rect x='56' y='88' width='18' height='50' fill='%23c9a84c' opacity='0.8' rx='2'/><rect x='78' y='62' width='18' height='76' fill='%23c9a84c' rx='2'/><rect x='100' y='78' width='18' height='60' fill='%23c9a84c' opacity='0.8' rx='2'/><rect x='122' y='98' width='18' height='40' fill='%23c9a84c' opacity='0.6' rx='2'/><line x1='138' y1='134' x2='170' y2='168' stroke='%23c9a84c' stroke-width='14' stroke-linecap='round'/></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a1628; --navy-mid: #112240; --navy-light: #1a3a6e;
+      --gold: #c9a84c; --gold-light: #e8c96a; --gold-dim: #8a6f32;
+      --white: #f8f9fc; --muted: #8892a4;
+      --border: rgba(201,168,76,0.15); --card-bg: rgba(17,34,64,0.6);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--navy); color: var(--white);
+      padding-top: 0;
+      font-family: 'DM Sans', sans-serif; font-size: 16px;
+      line-height: 1.7; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;
+      padding: 14px 40px;
+      background: rgba(10,22,40,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 1; min-width: 0; }
+    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #f8f9fc; letter-spacing: -0.5px; }
+    .nav-brand-name span { color: #c9a84c; }
+    .nav-brand-ext { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #c9a84c; letter-spacing: 1px; }
+    .hamburger {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 5px; cursor: pointer; padding: 10px 12px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px; z-index: 101;
+      flex-shrink: 0; margin-left: 16px;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #c9a84c; border-radius: 2px; }
+    .dropdown-menu {
+      position: fixed; top: 61px; right: 0; width: 260px;
+      background: rgba(10,22,40,0.98); backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      border-radius: 0 0 0 8px; padding: 12px 0; z-index: 100;
+      display: none; flex-direction: column;
+      box-shadow: -4px 4px 24px rgba(0,0,0,0.4);
+    }
+    .dropdown-menu.open { display: flex; }
+    .dropdown-menu a {
+      color: #8892a4; text-decoration: none;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+      padding: 12px 24px; border-bottom: 1px solid rgba(201,168,76,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover { color: #f8f9fc; background: rgba(201,168,76,0.05); }
+    .dropdown-menu a.menu-dashboard { color: #8892a4; }
+    .dropdown-menu a.menu-cta {
+      background: #c9a84c; color: #0a1628 !important;
+      font-weight: 700; text-align: center;
+      margin: 8px 16px; border-radius: 4px;
+      border-bottom: none; padding: 10px 24px;
+    }
+    .dropdown-menu a.menu-cta:hover { background: #e8c96a; }
+
+    /* Page header */
+    .page-header {
+      position: relative; z-index: 1;
+      padding: 140px 80px 60px; text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(26,58,110,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      color: var(--gold); letter-spacing: 4px; text-transform: uppercase;
+      margin-bottom: 16px; display: block;
+    }
+    .page-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--white); font-weight: 400;
+      letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px;
+    }
+    .page-header h1 em { font-style: italic; color: var(--gold); }
+    .page-header p { color: var(--muted); font-size: 1.05rem; max-width: 580px; margin: 0 auto; font-weight: 300; }
+
+    /* Access notice */
+    .access-notice {
+      position: relative; z-index: 1;
+      background: rgba(201,168,76,0.05);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 80px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 20px;
+    }
+    .access-notice p { color: var(--muted); font-size: 0.875rem; font-weight: 300; }
+    .access-notice p strong { color: var(--white); }
+    .access-notice a {
+      background: var(--gold); color: var(--navy);
+      padding: 8px 20px; border-radius: 4px;
+      font-weight: 600; font-size: 0.8rem;
+      text-decoration: none; white-space: nowrap;
+      flex-shrink: 0; transition: background 0.2s;
+    }
+    .access-notice a:hover { background: var(--gold-light); }
+
+    /* Tools grid */
+    .wrap { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 60px 80px; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 32px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      backdrop-filter: blur(10px);
+      display: flex; flex-direction: column;
+    }
+    .tool-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .tool-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    .tool-card:hover::before { opacity: 1; }
+
+    .tool-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+
+    .tool-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem; color: var(--white);
+      margin-bottom: 10px; font-weight: 400;
+    }
+
+    .tool-card p {
+      color: var(--muted); font-size: 0.875rem;
+      line-height: 1.7; font-weight: 300;
+      margin-bottom: 20px; flex: 1;
+    }
+
+    .tool-tabs {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;
+    }
+    .tool-tab {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: #c9a84c; padding: 5px 12px;
+      border-radius: 3px; font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.5px; font-weight: 500;
+    }
+
+    .tool-footer {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-top: auto;
+    }
+
+    .plan-badge {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 3px;
+    }
+    .plan-pro {
+      background: rgba(74,158,255,0.1);
+      border: 1px solid rgba(74,158,255,0.2);
+      color: #4a9eff;
+    }
+    .plan-business {
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold);
+    }
+
+    .tool-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--gold); text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-weight: 500; font-size: 0.72rem;
+      letter-spacing: 1px; text-transform: uppercase;
+      transition: gap 0.2s;
+    }
+    .tool-link:hover { gap: 12px; }
+    .tool-link::after { content: '→'; }
+
+    /* Footer */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 40px 80px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--white); }
+    .footer-brand span { color: var(--gold); }
+    footer p { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 1px; }
+
+    
+      .access-notice { padding: 16px 24px; flex-direction: column; text-align: center; }
+      .wrap { padding: 40px 24px; }
+      .tools-grid { grid-template-columns: 1fr; }
+      footer { padding: 24px; flex-direction: column; text-align: center; }
+    }
+
+    /* Hamburger menu */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;
+      padding: 14px 40px;
+      background: rgba(10,22,40,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 1; min-width: 0; }
+    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #f8f9fc; letter-spacing: -0.5px; }
+    .nav-brand-name span { color: #c9a84c; }
+    .nav-brand-ext { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #c9a84c; letter-spacing: 1px; }
+    .hamburger {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 5px; cursor: pointer; padding: 10px 12px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px; z-index: 101;
+      flex-shrink: 0; margin-left: 16px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: #c9a84c; border-radius: 2px; transition: all 0.3s;
+    }
+    .dropdown-menu {
+      position: fixed;
+      top: 61px; right: 0;
+      width: 260px;
+      background: rgba(10,22,40,0.98);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      border-radius: 0 0 0 8px;
+      padding: 12px 0;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      box-shadow: -4px 4px 24px rgba(0,0,0,0.4);
+    }
+    .dropdown-menu.open { display: flex; }
+    .dropdown-menu a {
+      color: #8892a4; text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(201,168,76,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover { color: #f8f9fc; background: rgba(201,168,76,0.05); }
+    .dropdown-menu a.menu-dashboard { color: #8892a4; }
+    .dropdown-menu a.menu-cta {
+      background: #c9a84c; color: #0a1628 !important;
+      font-weight: 700; text-align: center;
+      margin: 8px 16px; border-radius: 4px;
+      border-bottom: none; padding: 10px 24px;
+    }
+    .dropdown-menu a.menu-cta:hover { background: #e8c96a; }
+
   </style>
 </head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;AI Analysis Tools — QuantusData™.ai&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="description" content="Professional AI-powered analysis tools for insurance, healthcare, legal, financial, real estate, retail, education, and crime analysis." /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="icon" type="image/svg+xml" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'&gt;&lt;rect width='180' height='180' fill='%230a1628'/&gt;&lt;circle cx='90' cy='88' r='72' fill='none' stroke='%23c9a84c' stroke-width='14'/&gt;&lt;rect x='34' y='108' width='18' height='30' fill='%23c9a84c' opacity='0.6' rx='2'/&gt;&lt;rect x='56' y='88' width='18' height='50' fill='%23c9a84c' opacity='0.8' rx='2'/&gt;&lt;rect x='78' y='62' width='18' height='76' fill='%23c9a84c' rx='2'/&gt;&lt;rect x='100' y='78' width='18' height='60' fill='%23c9a84c' opacity='0.8' rx='2'/&gt;&lt;rect x='122' y='98' width='18' height='40' fill='%23c9a84c' opacity='0.6' rx='2'/&gt;&lt;line x1='138' y1='134' x2='170' y2='168' stroke='%23c9a84c' stroke-width='14' stroke-linecap='round'/&gt;&lt;/svg&gt;" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:wght@300;400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--navy: #0a1628; --navy-mid: #112240; --navy-light: #1a3a6e;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--gold: #c9a84c; --gold-light: #e8c96a; --gold-dim: #8a6f32;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--white: #f8f9fc; --muted: #8892a4;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--border: rgba(201,168,76,0.15); --card-bg: rgba(17,34,64,0.6);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>* { margin: 0; padding: 0; box-sizing: border-box; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>html { scroll-behavior: smooth; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--navy); color: var(--white);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'DM Sans', sans-serif; font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.7; overflow-x: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body::before {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: ''; position: fixed; inset: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-image:</p>
-<p class="p1"><span class="Apple-converted-space">        </span>linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-size: 60px 60px; pointer-events: none; z-index: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>nav {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: fixed; top: 0; left: 0; right: 0; z-index: 100;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 14px 40px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(10,22,40,0.95); backdrop-filter: blur(20px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(201,168,76,0.15);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 1; min-width: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #f8f9fc; letter-spacing: -0.5px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-brand-name span { color: #c9a84c; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-brand-ext { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #c9a84c; letter-spacing: 1px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hamburger {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex; flex-direction: column; justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 5px; cursor: pointer; padding: 10px 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(201,168,76,0.08);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(201,168,76,0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 6px; z-index: 101;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-shrink: 0; margin-left: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hamburger span { display: block; width: 22px; height: 2px; background: #c9a84c; border-radius: 2px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: fixed; top: 61px; right: 0; width: 260px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(10,22,40,0.98); backdrop-filter: blur(20px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-left: 1px solid rgba(201,168,76,0.15);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(201,168,76,0.15);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 0 0 0 8px; padding: 12px 0; z-index: 100;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: none; flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: -4px 4px 24px rgba(0,0,0,0.4);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu.open { display: flex; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #8892a4; text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 12px 24px; border-bottom: 1px solid rgba(201,168,76,0.06);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: color 0.2s, background 0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a:last-child { border-bottom: none; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a:hover { color: #f8f9fc; background: rgba(201,168,76,0.05); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a.menu-dashboard { color: #8892a4; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a.menu-cta {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #c9a84c; color: #0a1628 !important;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700; text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 8px 16px; border-radius: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: none; padding: 10px 24px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a.menu-cta:hover { background: #e8c96a; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Page header */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page-header {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative; z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 140px 80px 60px; text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page-header::before {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: ''; position: absolute; inset: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(26,58,110,0.3) 0%, transparent 70%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page-eyebrow {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'DM Mono', monospace; font-size: 0.65rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold); letter-spacing: 4px; text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 16px; display: block;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page-header h1 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'DM Serif Display', serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(2.5rem, 5vw, 4rem);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--white); font-weight: 400;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page-header h1 em { font-style: italic; color: var(--gold); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page-header p { color: var(--muted); font-size: 1.05rem; max-width: 580px; margin: 0 auto; font-weight: 300; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Access notice */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.access-notice {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative; z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(201,168,76,0.05);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 16px 80px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex; align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between; gap: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.access-notice p { color: var(--muted); font-size: 0.875rem; font-weight: 300; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.access-notice p strong { color: var(--white); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.access-notice a {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--gold); color: var(--navy);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 8px 20px; border-radius: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600; font-size: 0.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-decoration: none; white-space: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-shrink: 0; transition: background 0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.access-notice a:hover { background: var(--gold-light); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Tools grid */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.wrap { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 60px 80px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tools-grid {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-card {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--card-bg);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 8px; padding: 32px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative; overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(10px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex; flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-card::before {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: ''; position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>top: 0; left: 0; right: 0; height: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(to right, var(--gold), transparent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>opacity: 0; transition: opacity 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-card:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(201,168,76,0.4);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(-4px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 16px 48px rgba(0,0,0,0.4);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-card:hover::before { opacity: 1; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-icon { font-size: 2rem; margin-bottom: 14px; display: block; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-card h3 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'DM Serif Display', serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.1rem; color: var(--white);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 10px; font-weight: 400;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-card p {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted); font-size: 0.875rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.7; font-weight: 300;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 20px; flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-tabs {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-tab {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(201,168,76,0.07);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(201,168,76,0.18);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold-dim); padding: 3px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 3px; font-family: 'DM Mono', monospace;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.58rem; letter-spacing: 0.5px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-footer {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex; align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between; margin-top: auto;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.plan-badge {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'DM Mono', monospace; font-size: 0.6rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 1px; text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 3px 10px; border-radius: 3px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.plan-pro {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(74,158,255,0.1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(74,158,255,0.2);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #4a9eff;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.plan-business {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(201,168,76,0.1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(201,168,76,0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-link {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex; align-items: center; gap: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold); text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'DM Mono', monospace;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 500; font-size: 0.72rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 1px; text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: gap 0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-link:hover { gap: 12px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tool-link::after { content: '→'; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Footer */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>footer {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative; z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 40px 80px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex; justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center; flex-wrap: wrap; gap: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.footer-brand { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--white); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.footer-brand span { color: var(--gold); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>footer p { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 1px; }</p>
-<p class="p2"><br></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>.access-notice { padding: 16px 24px; flex-direction: column; text-align: center; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.wrap { padding: 40px 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.tools-grid { grid-template-columns: 1fr; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>footer { padding: 24px; flex-direction: column; text-align: center; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Hamburger menu */</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>nav {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: fixed; top: 0; left: 0; right: 0; z-index: 100;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 14px 40px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(10,22,40,0.95); backdrop-filter: blur(20px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(201,168,76,0.15);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 1; min-width: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #f8f9fc; letter-spacing: -0.5px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-brand-name span { color: #c9a84c; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-brand-ext { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #c9a84c; letter-spacing: 1px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hamburger {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex; flex-direction: column; justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 5px; cursor: pointer; padding: 10px 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(201,168,76,0.08);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(201,168,76,0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 6px; z-index: 101;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-shrink: 0; margin-left: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hamburger span {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: block; width: 22px; height: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #c9a84c; border-radius: 2px; transition: all 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>top: 61px; right: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 260px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(10,22,40,0.98);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(20px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-left: 1px solid rgba(201,168,76,0.15);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(201,168,76,0.15);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 0 0 0 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 12px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: 100;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: -4px 4px 24px rgba(0,0,0,0.4);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu.open { display: flex; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #8892a4; text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'DM Sans', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem; font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 12px 24px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(201,168,76,0.06);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: color 0.2s, background 0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a:last-child { border-bottom: none; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a:hover { color: #f8f9fc; background: rgba(201,168,76,0.05); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a.menu-dashboard { color: #8892a4; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a.menu-cta {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #c9a84c; color: #0a1628 !important;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700; text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 8px 16px; border-radius: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: none; padding: 10px 24px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.dropdown-menu a.menu-cta:hover { background: #e8c96a; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body style="padding-top:0;"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="index.html" class="nav-brand"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;svg width="36" height="36" viewBox="0 0 180 180"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;circle cx="90" cy="88" r="75" fill="none" stroke="#c9a84c" stroke-width="14"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;rect x="34" y="108" width="18" height="30" fill="#c9a84c" opacity="0.6" rx="2"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;rect x="56" y="88"<span class="Apple-converted-space">  </span>width="18" height="50" fill="#c9a84c" opacity="0.8" rx="2"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;rect x="78" y="62"<span class="Apple-converted-space">  </span>width="18" height="76" fill="#c9a84c" opacity="1" <span class="Apple-converted-space">  </span>rx="2"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;rect x="100" y="78" width="18" height="60" fill="#c9a84c" opacity="0.8" rx="2"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;rect x="122" y="98" width="18" height="40" fill="#c9a84c" opacity="0.6" rx="2"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;line x1="138" y1="134" x2="170" y2="168" stroke="#c9a84c" stroke-width="14" stroke-linecap="round"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="nav-brand-name"&gt;Quantus&lt;span&gt;Data&lt;/span&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="nav-brand-ext"&gt;.ai&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="hamburger" onclick="toggleMenu()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/nav&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="dropdown-menu" id="dropdown-menu"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="index.html"&gt;Home&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="tools.html" style="color:#c9a84c;font-weight:600;"&gt;Tools&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="index.html#pricing"&gt;Pricing&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="contact.html"&gt;Contact&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="dashboard.html" class="menu-dashboard"&gt;My Dashboard&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="index.html#pricing" class="menu-cta"&gt;Get Started&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function toggleMenu() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('dropdown-menu').classList.toggle('open');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.addEventListener('click', function(e) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var menu = document.getElementById('dropdown-menu');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>var btn = document.querySelector('.hamburger');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (menu &amp;&amp; btn &amp;&amp; !menu.contains(e.target) &amp;&amp; !btn.contains(e.target)) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>menu.classList.remove('open');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="page-header" style="padding-top:160px;padding-bottom:60px;text-align:center;position:relative;z-index:1;border-bottom:1px solid rgba(201,168,76,0.15);"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="page-eyebrow"&gt;// AI Analysis Tools&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Professional &lt;em&gt;AI Analysis Tools&lt;/em&gt;&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Production-grade AI tools built for professionals and businesses. Upload your data and get actionable AI-powered analysis in minutes.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="access-notice"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;All tools require a &lt;strong&gt;Professional ($79/mo)&lt;/strong&gt; or &lt;strong&gt;Business ($199/mo)&lt;/strong&gt; plan. &lt;strong&gt;File upload&lt;/strong&gt; included on all tools.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="index.html#pricing"&gt;View Plans &amp; Subscribe →&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="wrap"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="tools-grid"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;🛡️⚖️&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Insurance Arbitration Assistant&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Professional arbitration preparation covering liability reconstruction, repair estimate analysis, rental disputes, total loss valuation, bodily injury analysis, and AI document chat. Supports all 50 US states with state-specific statute citations.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Liability&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Repair Estimate&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Rental Analysis&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Total Loss&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Bodily Injury&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;AI Doc Chat&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-pro"&gt;Professional&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://arbitration.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;🛡️&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Insurance Data Analyzer&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Claims analysis, fraud detection pattern identification, loss ratio tracking, underwriting analysis, risk scoring, and actuarial modeling for insurance professionals and claims adjusters.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Claims&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Fraud Detection&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Underwriting&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Risk Scoring&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Actuarial&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-pro"&gt;Professional&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://insurance.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;🏥&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Healthcare &amp; Medical Analyzer&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;HIPAA-aware clinical data analysis, disease pattern recognition, medical billing audit, patient outcome analysis, and hospital efficiency metrics for healthcare administrators and medical professionals.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Clinical Analysis&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Disease Patterns&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Billing Audit&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Patient Outcomes&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Efficiency&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-pro"&gt;Professional&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://healthcare.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;⚖️&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Legal &amp; Law Firm Analyzer&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Contract analysis and risk identification, case outcome prediction, multi-document legal research, deposition transcript review, and law firm performance metrics for attorneys and legal professionals.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Contract Analysis&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Case Prediction&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Legal Research&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Depositions&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Firm Metrics&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-pro"&gt;Professional&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://legal.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;💹&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Financial &amp; Market Analyzer&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Market trend analysis, portfolio risk assessment, financial ratio calculation and benchmarking, fraud detection patterns, and macro-economic indicator analysis with live data integration.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Market Trends&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Portfolio Risk&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Financial Ratios&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Fraud Detection&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Economics&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-pro"&gt;Professional&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://financial.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;💼&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Investment Analyzer&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Stocks, crypto, and ETF analysis with live market data. Covers 7 prediction market platforms including Polymarket and Kalshi. Portfolio construction, risk scoring, and investment opportunity identification.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Stocks&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Crypto&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;ETFs&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Prediction Markets&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Portfolio&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-pro"&gt;Professional&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://investment.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;🏠&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Real Estate Analyzer&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Automated valuation modeling (AVM), investment ROI calculator, rental yield projections, market trend analysis, neighborhood demographics, and 10-year property value forecasting.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;AVM Valuation&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;ROI Calculator&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Rental Yield&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Market Trends&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;10-Year Forecast&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-pro"&gt;Professional&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://realestate.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;🛒&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Retail &amp; E-Commerce Analyzer&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;RFM customer segmentation, churn prediction modeling, price optimization and elasticity analysis, inventory management metrics, and customer lifetime value calculation for retail businesses.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;RFM Segmentation&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Churn Prediction&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Price Optimization&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Inventory&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;CLV&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-business"&gt;Business&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://retail.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;🎓&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Education Analyzer&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;FERPA-aware student performance analysis with 4 ML models, dropout risk prediction, curriculum effectiveness scoring, enrollment forecasting, and statistical hypothesis testing for educational institutions.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Student Performance&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Dropout Risk&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;4 ML Models&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Curriculum&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Enrollment&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-business"&gt;Business&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://education.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="tool-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="tool-icon"&gt;🚔&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;AI Crime &amp; Law Enforcement Analyzer&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Predictive crime mapping and hotspot analysis, case correlation across multiple incidents, recidivism risk scoring, police report AI review, and community safety trend analysis for law enforcement agencies.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Predictive Mapping&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Case Correlation&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Recidivism Risk&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Report Analysis&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="tool-tab"&gt;Safety Trends&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="plan-badge plan-business"&gt;Business&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://crime.existentialgateway.com" target="_blank" class="tool-link"&gt;Launch Tool&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;footer&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="footer-brand"&gt;Quantus&lt;span&gt;Data&lt;/span&gt;.ai&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;© 2026 QuantusData™.ai — A Division of Existential Gateway, LLC. All Rights Reserved.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Powered by Existential Gateway, LLC&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/footer&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+<body style="padding-top:0;">
+
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <svg width="36" height="36" viewBox="0 0 180 180">
+        <circle cx="90" cy="88" r="75" fill="none" stroke="#c9a84c" stroke-width="14"/>
+        <rect x="34" y="108" width="18" height="30" fill="#c9a84c" opacity="0.6" rx="2"/>
+        <rect x="56" y="88"  width="18" height="50" fill="#c9a84c" opacity="0.8" rx="2"/>
+        <rect x="78" y="62"  width="18" height="76" fill="#c9a84c" opacity="1"   rx="2"/>
+        <rect x="100" y="78" width="18" height="60" fill="#c9a84c" opacity="0.8" rx="2"/>
+        <rect x="122" y="98" width="18" height="40" fill="#c9a84c" opacity="0.6" rx="2"/>
+        <line x1="138" y1="134" x2="170" y2="168" stroke="#c9a84c" stroke-width="14" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <span class="nav-brand-name">Quantus<span>Data</span></span>
+        <span class="nav-brand-ext">.ai</span>
+      </div>
+    </a>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="dropdown-menu" id="dropdown-menu">
+    <a href="index.html">Home</a>
+    <a href="tools.html" style="color:#c9a84c;font-weight:600;">Tools</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <a href="dashboard.html" class="menu-dashboard">My Dashboard</a>
+    <a href="index.html#pricing" class="menu-cta">Get Started</a>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('dropdown-menu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      var menu = document.getElementById('dropdown-menu');
+      var btn = document.querySelector('.hamburger');
+      if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+  </script>
+
+  <div class="page-header" style="padding-top:160px;padding-bottom:60px;text-align:center;position:relative;z-index:1;border-bottom:1px solid rgba(201,168,76,0.15);">
+    <span class="page-eyebrow">// AI Analysis Tools</span>
+    <h1>Professional <em>AI Analysis Tools</em></h1>
+    <p>Production-grade AI tools built for professionals and businesses. Upload your data and get actionable AI-powered analysis in minutes.</p>
+  </div>
+
+  <div class="access-notice">
+    <p>All tools require a <strong>Professional ($79/mo)</strong> or <strong>Business ($199/mo)</strong> plan. <strong>File upload</strong> included on all tools.</p>
+    <a href="index.html#pricing">View Plans & Subscribe →</a>
+  </div>
+
+  <div class="wrap">
+    <div class="tools-grid">
+
+      <div class="tool-card">
+        <span class="tool-icon">🛡️⚖️</span>
+        <h3>AI Insurance Arbitration Assistant</h3>
+        <p>Professional arbitration preparation covering liability reconstruction, repair estimate analysis, rental disputes, total loss valuation, bodily injury analysis, and AI document chat. Supports all 50 US states with state-specific statute citations.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">Liability</span>
+          <span class="tool-tab">Repair Estimate</span>
+          <span class="tool-tab">Rental Analysis</span>
+          <span class="tool-tab">Total Loss</span>
+          <span class="tool-tab">Bodily Injury</span>
+          <span class="tool-tab">AI Doc Chat</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://arbitration.existentialgateway.com" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">🛡️</span>
+        <h3>AI Insurance Data Analyzer</h3>
+        <p>Claims analysis, fraud detection pattern identification, loss ratio tracking, underwriting analysis, risk scoring, and actuarial modeling for insurance professionals and claims adjusters.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">Claims</span>
+          <span class="tool-tab">Fraud Detection</span>
+          <span class="tool-tab">Underwriting</span>
+          <span class="tool-tab">Risk Scoring</span>
+          <span class="tool-tab">Actuarial</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://insurance.existentialgateway.com" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">🏥</span>
+        <h3>AI Healthcare & Medical Analyzer</h3>
+        <p>HIPAA-aware clinical data analysis, disease pattern recognition, medical billing audit, patient outcome analysis, and hospital efficiency metrics for healthcare administrators and medical professionals.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">Clinical Analysis</span>
+          <span class="tool-tab">Disease Patterns</span>
+          <span class="tool-tab">Billing Audit</span>
+          <span class="tool-tab">Patient Outcomes</span>
+          <span class="tool-tab">Efficiency</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://healthcare.existentialgateway.com" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">⚖️</span>
+        <h3>AI Legal & Law Firm Analyzer</h3>
+        <p>Contract analysis and risk identification, case outcome prediction, multi-document legal research, deposition transcript review, and law firm performance metrics for attorneys and legal professionals.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">Contract Analysis</span>
+          <span class="tool-tab">Case Prediction</span>
+          <span class="tool-tab">Legal Research</span>
+          <span class="tool-tab">Depositions</span>
+          <span class="tool-tab">Firm Metrics</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://legal.existentialgateway.com" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">💹</span>
+        <h3>AI Financial & Market Analyzer</h3>
+        <p>Market trend analysis, portfolio risk assessment, financial ratio calculation and benchmarking, fraud detection patterns, and macro-economic indicator analysis with live data integration.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">Market Trends</span>
+          <span class="tool-tab">Portfolio Risk</span>
+          <span class="tool-tab">Financial Ratios</span>
+          <span class="tool-tab">Fraud Detection</span>
+          <span class="tool-tab">Economics</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://financial.existentialgateway.com" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">💼</span>
+        <h3>AI Investment Analyzer</h3>
+        <p>Stocks, crypto, and ETF analysis with live market data. Covers 7 prediction market platforms including Polymarket and Kalshi. Portfolio construction, risk scoring, and investment opportunity identification.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">Stocks</span>
+          <span class="tool-tab">Crypto</span>
+          <span class="tool-tab">ETFs</span>
+          <span class="tool-tab">Prediction Markets</span>
+          <span class="tool-tab">Portfolio</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://investment.existentialgateway.com" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">🏠</span>
+        <h3>AI Real Estate Analyzer</h3>
+        <p>Automated valuation modeling (AVM), investment ROI calculator, rental yield projections, market trend analysis, neighborhood demographics, and 10-year property value forecasting.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">AVM Valuation</span>
+          <span class="tool-tab">ROI Calculator</span>
+          <span class="tool-tab">Rental Yield</span>
+          <span class="tool-tab">Market Trends</span>
+          <span class="tool-tab">10-Year Forecast</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://realestate.existentialgateway.com" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">🛒</span>
+        <h3>AI Retail & E-Commerce Analyzer</h3>
+        <p>RFM customer segmentation, churn prediction modeling, price optimization and elasticity analysis, inventory management metrics, and customer lifetime value calculation for retail businesses.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">RFM Segmentation</span>
+          <span class="tool-tab">Churn Prediction</span>
+          <span class="tool-tab">Price Optimization</span>
+          <span class="tool-tab">Inventory</span>
+          <span class="tool-tab">CLV</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://retail.existentialgateway.com" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">🎓</span>
+        <h3>AI Education Analyzer</h3>
+        <p>FERPA-aware student performance analysis with 4 ML models, dropout risk prediction, curriculum effectiveness scoring, enrollment forecasting, and statistical hypothesis testing for educational institutions.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">Student Performance</span>
+          <span class="tool-tab">Dropout Risk</span>
+          <span class="tool-tab">4 ML Models</span>
+          <span class="tool-tab">Curriculum</span>
+          <span class="tool-tab">Enrollment</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://education.existentialgateway.com" id="education-card" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+        <a href="/samples/education_sample.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin:12px 0 8px;font-family:DM Mono,monospace;font-size:0.68rem;color:#0a1628;letter-spacing:2px;text-decoration:none;padding:8px 18px;border-radius:4px;background:linear-gradient(135deg,#c9a84c,#e8c96a);font-weight:700;box-shadow:0 2px 12px rgba(201,168,76,0.35);">👀 VIEW SAMPLE ANALYSIS</a>
+      </div>
+
+      <div class="tool-card">
+        <span class="tool-icon">🚔</span>
+        <h3>AI Crime & Law Enforcement Analyzer</h3>
+        <p>Predictive crime mapping and hotspot analysis, case correlation across multiple incidents, recidivism risk scoring, police report AI review, and community safety trend analysis for law enforcement agencies.</p>
+        <div class="tool-tabs">
+          <span class="tool-tab">Predictive Mapping</span>
+          <span class="tool-tab">Case Correlation</span>
+          <span class="tool-tab">Recidivism Risk</span>
+          <span class="tool-tab">Report Analysis</span>
+          <span class="tool-tab">Safety Trends</span>
+        </div>
+        <div class="tool-footer">
+          <a href="https://crime.existentialgateway.com" target="_blank" class="tool-link">Launch Tool</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <span class="footer-brand">Quantus<span>Data</span>.ai</span>
+    </div>
+    <p>© 2026 QuantusData™.ai — A Division of Existential Gateway, LLC. All Rights Reserved.</p>
+    <p>Powered by Existential Gateway, LLC</p>
+  </footer>
+
 </body>
 </html>

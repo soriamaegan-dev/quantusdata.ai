@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Dashboard — QuantusData™</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' fill='%230a1628'/><circle cx='90' cy='88' r='72' fill='none' stroke='%23c9a84c' stroke-width='14'/><rect x='34' y='108' width='18' height='30' fill='%23c9a84c' opacity='0.6' rx='2'/><rect x='56' y='88' width='18' height='50' fill='%23c9a84c' opacity='0.8' rx='2'/><rect x='78' y='62' width='18' height='76' fill='%23c9a84c' rx='2'/><rect x='100' y='78' width='18' height='60' fill='%23c9a84c' opacity='0.8' rx='2'/><rect x='122' y='98' width='18' height='40' fill='%23c9a84c' opacity='0.6' rx='2'/><line x1='138' y1='134' x2='170' y2='168' stroke='%23c9a84c' stroke-width='14' stroke-linecap='round'/></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <style>
+    :root {
+      --navy: #0a1628; --navy-mid: #112240; --navy-light: #1a3a6e;
+      --gold: #c9a84c; --gold-light: #e8c96a; --gold-dim: #8a6f32;
+      --white: #f8f9fc; --muted: #8892a4;
+      --border: rgba(201,168,76,0.15); --card-bg: rgba(17,34,64,0.6);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--navy); color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+
+    
+    /* Login Page */
+    #login-page {
+      min-height: 100vh; display: flex;
+      align-items: center; justify-content: center;
+      padding: 24px; position: relative; z-index: 1;
+    }
+    .login-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 48px;
+      width: 100%; max-width: 440px;
+      backdrop-filter: blur(10px); text-align: center;
+    }
+    .login-logo { margin-bottom: 24px; }
+    .login-card h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem; color: var(--white);
+      margin-bottom: 8px; font-weight: 400;
+    }
+    .login-card h1 em { font-style: italic; color: var(--gold); }
+    .login-card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 32px; font-weight: 300; }
+
+    .form-group { margin-bottom: 16px; text-align: left; }
+    .form-label {
+      font-family: 'DM Mono', monospace; font-size: 0.6rem;
+      color: var(--gold); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 6px; display: block;
+    }
+    .form-input {
+      width: 100%; background: rgba(17,34,64,0.8);
+      border: 1px solid rgba(201,168,76,0.18);
+      color: var(--white); padding: 12px 16px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      border-radius: 4px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: rgba(201,168,76,0.5); }
+    .form-input::placeholder { color: var(--muted); }
+
+    .btn-primary {
+      width: 100%; background: var(--gold); color: var(--navy);
+      border: none; padding: 13px; border-radius: 4px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s; margin-top: 8px;
+    }
+    .btn-primary:hover { background: var(--gold-light); }
+
+    .login-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 20px 0; color: var(--muted); font-size: 0.8rem;
+    }
+    .login-divider::before, .login-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .magic-link-sent {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 4px; padding: 16px;
+      color: var(--gold); font-size: 0.875rem;
+      margin-top: 16px; display: none;
+    }
+
+    .error-msg {
+      background: rgba(255,80,80,0.08);
+      border: 1px solid rgba(255,80,80,0.25);
+      border-radius: 4px; padding: 12px;
+      color: #ff8080; font-size: 0.8rem;
+      margin-top: 12px; display: none;
+    }
+
+    .login-footer {
+      margin-top: 24px; color: var(--muted);
+      font-size: 0.8rem; font-weight: 300;
+    }
+    .login-footer a { color: var(--gold); text-decoration: none; }
+
+    /* Dashboard */
+    #dashboard-page { display: none; padding-top: 80px; min-height: 100vh; position: relative; z-index: 1; }
+
+    .dashboard-header {
+      padding: 48px; border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(26,58,110,0.2) 0%, transparent 100%);
+    }
+    .dashboard-header p { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+    .dashboard-header h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--white); font-weight: 400; }
+    .dashboard-header h2 em { font-style: italic; color: var(--gold); }
+
+    .plan-badge-large {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 12px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold); padding: 6px 16px;
+      border-radius: 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .tools-section { padding: 48px; }
+    .tools-section h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem; color: var(--white);
+      margin-bottom: 8px; font-weight: 400;
+    }
+    .tools-section p { color: var(--muted); font-size: 0.875rem; margin-bottom: 32px; font-weight: 300; }
+
+    .dashboard-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .dashboard-tool-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 24px;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.3s, transform 0.2s;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+    }
+    .dashboard-tool-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .dashboard-tool-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-2px);
+    }
+    .dashboard-tool-card:hover::before { opacity: 1; }
+
+    .tool-card-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+    .tool-card-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.95rem; color: var(--white);
+      margin-bottom: 6px; font-weight: 400;
+    }
+    .tool-card-desc {
+      color: var(--muted); font-size: 0.78rem;
+      line-height: 1.6; font-weight: 300; flex: 1;
+      margin-bottom: 16px;
+    }
+    .tool-card-launch {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; color: var(--gold);
+      letter-spacing: 1px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 4px;
+      transition: gap 0.2s;
+    }
+    .dashboard-tool-card:hover .tool-card-launch { gap: 10px; }
+    .tool-card-launch::after { content: '→'; }
+
+    /* Starter plan tool picker */
+    .starter-notice {
+      background: rgba(201,168,76,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 32px;
+      text-align: center; margin-bottom: 32px;
+    }
+    .starter-notice h4 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem; color: var(--white);
+      margin-bottom: 8px; font-weight: 400;
+    }
+    .starter-notice p { color: var(--muted); font-size: 0.875rem; margin-bottom: 20px; }
+
+    .upgrade-banner {
+      margin: 0 48px 48px;
+      background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(26,58,110,0.2) 100%);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px; padding: 24px 32px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 20px;
+    }
+    .upgrade-banner p { color: var(--muted); font-size: 0.875rem; font-weight: 300; }
+    .upgrade-banner p strong { color: var(--white); }
+    .btn-upgrade {
+      background: var(--gold); color: var(--navy);
+      padding: 10px 24px; border-radius: 4px;
+      font-weight: 600; font-size: 0.8rem;
+      text-decoration: none; white-space: nowrap;
+      flex-shrink: 0; transition: background 0.2s;
+    }
+    .btn-upgrade:hover { background: var(--gold-light); }
+
+    .loading { text-align: center; padding: 80px; color: var(--muted); }
+
+    /* Hamburger menu */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap;
+      padding: 14px 40px;
+      background: rgba(10,22,40,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: 1; min-width: 0; }
+    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #f8f9fc; letter-spacing: -0.5px; }
+    .nav-brand-name span { color: #c9a84c; }
+    .nav-brand-ext { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #c9a84c; letter-spacing: 1px; }
+    .hamburger {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 5px; cursor: pointer; padding: 10px 12px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px; z-index: 101;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: #c9a84c; border-radius: 2px; transition: all 0.3s;
+    }
+    .dropdown-menu {
+      position: fixed;
+      top: 61px; right: 0;
+      width: 260px;
+      background: rgba(10,22,40,0.98);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      border-radius: 0 0 0 8px;
+      padding: 12px 0;
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      box-shadow: -4px 4px 24px rgba(0,0,0,0.4);
+    }
+    .dropdown-menu.open { display: flex; }
+    .dropdown-menu a {
+      color: #8892a4; text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(201,168,76,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover { color: #f8f9fc; background: rgba(201,168,76,0.05); }
+    .dropdown-menu a.menu-dashboard { color: #8892a4; }
+    .dropdown-menu a.menu-cta {
+      background: #c9a84c; color: #0a1628 !important;
+      font-weight: 700; text-align: center;
+      margin: 8px 16px; border-radius: 4px;
+      border-bottom: none; padding: 10px 24px;
+    }
+    .dropdown-menu a.menu-cta:hover { background: #e8c96a; }
+
+  
+    .tools-section { padding: 20px 0; }
+    .tools-section h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem; color: #f8f9fc;
+      margin-bottom: 8px; font-weight: 400;
+    }
+    .tools-section p { color: #8892a4; margin-bottom: 24px; }
+    .dashboard-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .dashboard-tool-card {
+      background: rgba(17,34,64,0.6);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 8px; padding: 24px;
+      text-decoration: none; display: block;
+      transition: all 0.2s;
+    }
+    .dashboard-tool-card:hover {
+      border-color: #c9a84c;
+      background: rgba(17,34,64,0.9);
+      transform: translateY(-2px);
+    }
+    .tool-card-icon { font-size: 2rem; display: block; margin-bottom: 12px; }
+    .tool-card-name {
+      color: #f8f9fc; font-weight: 600;
+      font-size: 0.95rem; margin-bottom: 8px;
+    }
+    .tool-card-desc { color: #8892a4; font-size: 0.8rem; line-height: 1.6; margin-bottom: 12px; }
+    .tool-card-launch {
+      color: #c9a84c; font-size: 0.7rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .starter-notice {
+      background: rgba(17,34,64,0.6);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px; padding: 40px;
+      text-align: center; max-width: 500px;
+    }
+    .starter-notice h4 { color: #f8f9fc; font-size: 1.2rem; margin-bottom: 12px; }
+    .starter-notice p { color: #8892a4; margin-bottom: 24px; }
+    #nav-email { font-size: 0.75rem; color: #8892a4; margin-left: 8px; }
+
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <svg width="34" height="34" viewBox="0 0 180 180">
+        <circle cx="90" cy="88" r="75" fill="none" stroke="#c9a84c" stroke-width="14"/>
+        <rect x="34" y="108" width="18" height="30" fill="#c9a84c" opacity="0.6" rx="2"/>
+        <rect x="56" y="88"  width="18" height="50" fill="#c9a84c" opacity="0.8" rx="2"/>
+        <rect x="78" y="62"  width="18" height="76" fill="#c9a84c" opacity="1"   rx="2"/>
+        <rect x="100" y="78" width="18" height="60" fill="#c9a84c" opacity="0.8" rx="2"/>
+        <rect x="122" y="98" width="18" height="40" fill="#c9a84c" opacity="0.6" rx="2"/>
+        <line x1="138" y1="134" x2="170" y2="168" stroke="#c9a84c" stroke-width="14" stroke-linecap="round"/>
+      </svg>
+      <div style="display:flex;align-items:baseline;gap:2px;">
+        <span class="nav-brand-name">Quantus<span>Data</span></span>
+        <span class="nav-brand-ext">.ai</span>
+      </div>
+    </a>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="dropdown-menu" id="dropdown-menu">
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <a href="dashboard.html" class="menu-dashboard" style="color:#c9a84c;font-weight:600;">My Dashboard</a>
+    <a href="index.html#pricing" class="menu-cta">Get Started</a>
+  </div>
+
+  
+  <!-- Login Page -->
+  <div id="login-page" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;z-index:1;">
+    <div style="background:rgba(17,34,64,0.6);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:48px;width:100%;max-width:440px;backdrop-filter:blur(10px);text-align:center;">
+      <svg width="52" height="52" viewBox="0 0 180 180" style="margin-bottom:20px;">
+        <circle cx="90" cy="88" r="75" fill="none" stroke="#c9a84c" stroke-width="14"/>
+        <rect x="34" y="108" width="18" height="30" fill="#c9a84c" opacity="0.6" rx="2"/>
+        <rect x="56" y="88"  width="18" height="50" fill="#c9a84c" opacity="0.8" rx="2"/>
+        <rect x="78" y="62"  width="18" height="76" fill="#c9a84c" opacity="1"   rx="2"/>
+        <rect x="100" y="78" width="18" height="60" fill="#c9a84c" opacity="0.8" rx="2"/>
+        <rect x="122" y="98" width="18" height="40" fill="#c9a84c" opacity="0.6" rx="2"/>
+        <line x1="138" y1="134" x2="170" y2="168" stroke="#c9a84c" stroke-width="14" stroke-linecap="round"/>
+      </svg>
+      <h1 style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#f8f9fc;margin-bottom:8px;font-weight:400;">Welcome to <em style="font-style:italic;color:#c9a84c;">QuantusData™</em></h1>
+      <p style="color:#8892a4;font-size:0.9rem;margin-bottom:32px;font-weight:300;">Sign in with your email to access your AI analysis tools. No password needed.</p>
+
+      <div style="margin-bottom:16px;text-align:left;">
+        <label style="font-family:'DM Mono',monospace;font-size:0.6rem;color:#c9a84c;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;display:block;">Email Address</label>
+        <input type="email" id="email-input" placeholder="you@company.com"
+          style="width:100%;background:rgba(17,34,64,0.8);border:1px solid rgba(201,168,76,0.18);color:#f8f9fc;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:4px;outline:none;" />
+      </div>
+
+      <button onclick="sendMagicLink()"
+        style="width:100%;background:#c9a84c;color:#0a1628;border:none;padding:13px;border-radius:4px;font-weight:600;font-size:0.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Send Magic Link →
+      </button>
+
+      <div id="magic-sent" style="display:none;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:4px;padding:16px;color:#c9a84c;font-size:0.875rem;margin-top:16px;">
+        ✓ Check your email! Click the magic link to sign in instantly.
+      </div>
+      <div id="error-msg" style="display:none;background:rgba(255,80,80,0.08);border:1px solid rgba(255,80,80,0.25);border-radius:4px;padding:12px;color:#ff8080;font-size:0.8rem;margin-top:12px;"></div>
+
+      <p style="margin-top:24px;color:#8892a4;font-size:0.8rem;">Don't have an account? <a href="index.html#pricing" style="color:#c9a84c;text-decoration:none;">View Plans →</a></p>
+    </div>
+  </div>
+
+  <!-- Dashboard Page -->
+  <div id="dashboard-page" style="display:none;padding-top:80px;min-height:100vh;position:relative;z-index:1;">
+    <div style="padding:48px;border-bottom:1px solid rgba(201,168,76,0.15);background:linear-gradient(135deg,rgba(26,58,110,0.2) 0%,transparent 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:0.65rem;color:#c9a84c;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;">// My Dashboard</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:2rem;color:#f8f9fc;font-weight:400;">Welcome back, <em id="user-name" style="font-style:italic;color:#c9a84c;">there</em>!</h2>
+      <span id="plan-badge" style="display:inline-block;margin-top:12px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);color:#c9a84c;padding:6px 16px;border-radius:20px;font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;">Loading...</span>
+    </div>
+    <div id="dashboard-content" style="padding:48px;">
+      <p style="color:#8892a4;">Loading your tools...</p>
+    </div>
+  </div>
+<script>
+    function toggleMenu() {
+      document.getElementById('dropdown-menu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      var menu = document.getElementById('dropdown-menu');
+      var hamburger = document.querySelector('.hamburger');
+      if (menu && hamburger && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+  </script>
+
+
+<script>
+  const SUPABASE_URL = 'https://jolvnzhwwchbkuzkeqjt.supabase.co'
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbHZuemh3d2NoYmt1emtlcWp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDg5NDYsImV4cCI6MjA5MDI4NDk0Nn0.gNd-q8SjDjMKBiYZtQALhqQvTsbTnQuQj9FZG4q3lIs'
+
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+  async function sendMagicLink() {
+    const email = document.getElementById('email-input').value.trim()
+    if (!email) return
+
+    const { error } = await sb.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: 'https://quantusdata.ai/dashboard.html' }
+    })
+
+    if (error) {
+      document.getElementById('error-msg').style.display = 'block'
+      document.getElementById('error-msg').textContent = error.message
+    } else {
+      document.getElementById('magic-sent').style.display = 'block'
+    }
+  }
+
+  async function signOut() {
+    await sb.auth.signOut()
+    document.getElementById('login-page').style.display = 'flex'
+    document.getElementById('dashboard-page').style.display = 'none'
+  }
+
+  const ALL_TOOLS = [
+    { icon: '🛡️⚖️', name: 'Insurance Arbitration Assistant', desc: 'Liability reconstruction, repair estimates, rental disputes, total loss, bodily injury analysis.', url: 'https://arbitration.existentialgateway.com' },
+    { icon: '🛡️', name: 'Insurance Data Analyzer', desc: 'Claims analysis, fraud detection, loss ratio tracking, underwriting and risk scoring.', url: 'https://insurance.existentialgateway.com' },
+    { icon: '🏥', name: 'Healthcare & Medical Analyzer', desc: 'Clinical data analysis, disease patterns, medical billing audit, patient outcomes.', url: 'https://healthcare.existentialgateway.com' },
+    { icon: '⚖️', name: 'Legal & Law Firm Analyzer', desc: 'Contract analysis, case outcome prediction, legal research, deposition review.', url: 'https://legal.existentialgateway.com' },
+    { icon: '💹', name: 'Financial & Market Analyzer', desc: 'Market trends, portfolio risk, financial ratios, fraud detection, economic indicators.', url: 'https://financial.existentialgateway.com' },
+    { icon: '💼', name: 'Investment Analyzer', desc: 'Stocks, crypto, ETFs, prediction markets including Polymarket and Kalshi.', url: 'https://investment.existentialgateway.com' },
+    { icon: '🏠', name: 'Real Estate Analyzer', desc: 'AVM property valuation, ROI calculator, rental yield, 10-year forecasting.', url: 'https://realestate.existentialgateway.com' },
+    { icon: '🛒', name: 'Retail & E-Commerce Analyzer', desc: 'RFM segmentation, churn prediction, price optimization, customer lifetime value.', url: 'https://retail.existentialgateway.com' },
+    { icon: '🎓', name: 'Education Analyzer', desc: 'Student performance analysis, dropout risk prediction, 4 ML models.', url: 'https://education.existentialgateway.com' },
+    { icon: '🚔', name: 'Crime & Law Enforcement Analyzer', desc: 'Predictive crime mapping, case correlation, recidivism scoring.', url: 'https://crime.existentialgateway.com' },
+  ]
+
+  function renderTools(plan, tools) {
+    const planNames = {
+      starter: 'Starter Plan — $29/month',
+      professional: 'Professional Plan — $79/month',
+      small_business: 'Small Business Plan — $199/month'
+    }
+    document.getElementById('plan-badge').textContent = planNames[plan] || 'Active Plan'
+
+    let html = '<div class="tools-section"><h3>Your AI Analysis Tools</h3><p>Click any tool to launch it.</p><div class="dashboard-tools-grid">'
+    
+    tools.forEach(tool => {
+      html += `<a href="${tool.url}" target="_blank" class="dashboard-tool-card">
+        <span class="tool-card-icon">${tool.icon}</span>
+        <p class="tool-card-name">${tool.name}</p>
+        <p class="tool-card-desc">${tool.desc}</p>
+        <span class="tool-card-launch">Launch Tool</span>
+      </a>`
+    })
+    
+    html += '</div></div>'
+    document.getElementById('dashboard-content').innerHTML = html
+  }
+
+  async function loadDashboard(user) {
+    document.getElementById('login-page').style.display = 'none'
+    document.getElementById('dashboard-page').style.display = 'block'
+    // nav-email optional
+    document.getElementById('user-name').textContent = user.email.split('@')[0]
+
+    const { data, error } = await sb
+      .from('subscriptions')
+      .select('*')
+      .eq('email', user.email)
+      .eq('status', 'active')
+      .single()
+
+    if (error || !data) {
+      document.getElementById('dashboard-content').innerHTML = `
+        <div class="tools-section">
+          <div class="starter-notice">
+            <h4>No Active Subscription Found</h4>
+            <p>We could not find an active subscription for ${user.email}.</p>
+            <a href="index.html#pricing" style="display:inline-block;background:var(--gold);color:var(--navy);padding:10px 24px;border-radius:4px;font-weight:600;font-size:0.85rem;text-decoration:none;">View Plans</a>
+          </div>
+        </div>`
+      document.getElementById('plan-badge').textContent = 'No Active Plan'
+      return
+    }
+
+    renderTools(data.plan, ALL_TOOLS)
+  }
+
+  async function init() {
+    const { data: { session } } = await sb.auth.getSession()
+    if (session?.user) {
+      await loadDashboard(session.user)
+    }
+
+    sb.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
+        await loadDashboard(session.user)
+      }
+      if (event === 'SIGNED_OUT') {
+        document.getElementById('login-page').style.display = 'flex'
+        document.getElementById('dashboard-page').style.display = 'none'
+      }
+    })
+  }
+
+  init()
+</script>
+</body>
+</html>
