@@ -478,26 +478,35 @@
 
   function renderTools(plan, tools) {
     const planNames = {
-      starter: 'Starter Plan — $29/month',
+      basic: 'Basic Plan — $29/month',
       professional: 'Professional Plan — $79/month',
-      small_business: 'Small Business Plan — $199/month'
+      business: 'Business Plan — $199/month',
+      owner: 'Owner Access',
+      gateway: 'The Gateway Plan — $9.99/month'
     }
     document.getElementById('plan-badge').textContent = planNames[plan] || 'Active Plan'
 
-    let html = '<div class="tools-section"><h3>Your AI Analysis Tools</h3><p>Click any tool to launch it.</p><div class="dashboard-tools-grid">'
-    
+    const isPremium = ['professional', 'business', 'owner'].includes(plan)
+    const isBusiness = ['business', 'owner'].includes(plan)
+
+    let html = '<div class="tools-section"><h3>Your AI Analysis Tools</h3><p>Click any tool to launch it.</p>'
+
+    if (isBusiness) {
+      html += `<div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:8px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;"><span style="font-size:1.4rem;">⭐</span><div><p style="color:#f8f9fc;font-weight:600;font-size:0.9rem;margin:0;">Business Plan Benefits</p><p style="color:#8892a4;font-size:0.78rem;margin:4px 0 0;">White-label reports · Data retention · Advanced exports · API access · 1 custom tool/year</p></div><a href="mailto:existentialgateway@gmail.com?subject=Custom Tool Request" style="margin-left:auto;background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#0a1628;padding:8px 18px;border-radius:4px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;">Request Custom Tool →</a></div>`
+    }
+
+    if (plan === 'basic') {
+      html += `<div style="background:rgba(17,34,64,0.6);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;"><p style="color:#8892a4;font-size:0.82rem;margin:0;">⭐ Upgrade to <strong style="color:#c9a84c;">Professional</strong> to unlock Data Cleaning, Multi-Dataset, AI Chat, Visualizations & Reports.</p><a href="index.html#pricing" style="background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#0a1628;padding:8px 18px;border-radius:4px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;">Upgrade Now →</a></div>`
+    }
+
+    html += '<div class="dashboard-tools-grid">'
     tools.forEach(tool => {
       html += `<a href="javascript:void(0)" onclick="openTool('${tool.url}')" class="dashboard-tool-card">
         <span class="tool-card-icon">${tool.icon}</span>
         <p class="tool-card-name">${tool.name}</p>
         <p class="tool-card-desc">${tool.desc}</p>
-        <span class="tool-card-launch">Launch Tool</span>
+        <span class="tool-card-launch">Launch Tool →</span>
       </a>`
-    })
-    
-    html += '</div></div>'
-    document.getElementById('dashboard-content').innerHTML = html
-  }
 
   async function loadDashboard(user) {
     document.getElementById('login-page').style.display = 'none'
@@ -518,7 +527,11 @@
           <div class="starter-notice">
             <h4>No Active Subscription Found</h4>
             <p>We could not find an active subscription for ${user.email}.</p>
-            <a href="index.html#pricing" style="display:inline-block;background:var(--gold);color:var(--navy);padding:10px 24px;border-radius:4px;font-weight:600;font-size:0.85rem;text-decoration:none;">View Plans</a>
+            <p style="font-size:0.8rem;color:#8892a4;margin-top:8px;">If you recently subscribed, please wait a few minutes and refresh the page.</p>
+            <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+              <a href="index.html#pricing" style="display:inline-block;background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#0a1628;padding:10px 24px;border-radius:4px;font-weight:700;font-size:0.85rem;text-decoration:none;">View Plans →</a>
+              <a href="mailto:existentialgateway@gmail.com" style="display:inline-block;background:transparent;border:1px solid rgba(201,168,76,0.3);color:#c9a84c;padding:10px 24px;border-radius:4px;font-weight:600;font-size:0.85rem;text-decoration:none;">Contact Support</a>
+            </div>
           </div>
         </div>`
       document.getElementById('plan-badge').textContent = 'No Active Plan'
