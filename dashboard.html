@@ -371,6 +371,7 @@
     <a href="contact.html">Contact</a>
     <a href="dashboard.html" class="menu-dashboard" style="color:#c9a84c;font-weight:600;">My Dashboard</a>
     <a href="index.html#pricing" class="menu-cta">Get Started</a>
+    <a href="javascript:void(0)" onclick="signOut()" style="color:#ff6b6b !important;text-align:center;border-top:1px solid rgba(255,107,107,0.15) !important;">🚪 Sign Out</a>
   </div>
 
   
@@ -451,7 +452,11 @@
 
     if (error) {
       document.getElementById('error-msg').style.display = 'block'
-      document.getElementById('error-msg').textContent = error.message
+      if (error.message.toLowerCase().includes('rate limit') || error.message.toLowerCase().includes('too many')) {
+        document.getElementById('error-msg').textContent = 'Too many requests. Please wait 1 hour before requesting another magic link.'
+      } else {
+        document.getElementById('error-msg').textContent = error.message
+      }
     } else {
       document.getElementById('magic-sent').style.display = 'block'
     }
