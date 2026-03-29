@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — QuantusData™.ai</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' fill='%230a1628'/><circle cx='90' cy='88' r='72' fill='none' stroke='%23c9a84c' stroke-width='14'/><rect x='34' y='108' width='18' height='30' fill='%23c9a84c' opacity='0.6' rx='2'/><rect x='56' y='88' width='18' height='50' fill='%23c9a84c' opacity='0.8' rx='2'/><rect x='78' y='62' width='18' height='76' fill='%23c9a84c' rx='2'/><rect x='100' y='78' width='18' height='60' fill='%23c9a84c' opacity='0.8' rx='2'/><rect x='122' y='98' width='18' height='40' fill='%23c9a84c' opacity='0.6' rx='2'/><line x1='138' y1='134' x2='170' y2='168' stroke='%23c9a84c' stroke-width='14' stroke-linecap='round'/></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a1628; --navy-mid: #112240;
+      --gold: #c9a84c; --gold-light: #e8c96a;
+      --white: #f8f9fc; --muted: #8892a4;
+      --border: rgba(201,168,76,0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--navy); color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 16px;
+      line-height: 1.8; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 40px;
+      background: rgba(10,22,40,0.98); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); }
+    .nav-brand-name span { color: var(--gold); }
+    .nav-back { font-size: 0.8rem; color: var(--muted); text-decoration: none; padding: 6px 14px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.2s; }
+    .nav-back:hover { color: var(--gold); border-color: var(--gold); }
+    .page-header {
+      position: relative; z-index: 1;
+      padding: 80px 40px 40px; text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      color: var(--gold); letter-spacing: 4px; text-transform: uppercase;
+      margin-bottom: 16px; display: block;
+    }
+    .page-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white); font-weight: 400; margin-bottom: 16px;
+    }
+    .page-header p { color: var(--muted); font-size: 0.9rem; }
+    .content {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto;
+      padding: 60px 40px;
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem; color: var(--gold);
+      font-weight: 400; margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 { font-size: 1rem; font-weight: 600; color: var(--white); margin: 24px 0 10px; }
+    p { color: var(--muted); margin-bottom: 16px; font-size: 0.92rem; }
+    ul { color: var(--muted); padding-left: 24px; margin-bottom: 16px; font-size: 0.92rem; }
+    ul li { margin-bottom: 8px; }
+    strong { color: var(--white); }
+    .highlight-box {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+      padding: 16px 20px; margin: 20px 0;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .highlight-box strong { color: var(--gold); }
+    .effective-date {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem;
+      color: var(--muted); letter-spacing: 1px;
+    }
+    table {
+      width: 100%; border-collapse: collapse;
+      margin: 20px 0; font-size: 0.88rem;
+    }
+    th {
+      background: rgba(201,168,76,0.1);
+      color: var(--gold); font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;
+      padding: 12px 16px; text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 12px 16px; color: var(--muted);
+      border-bottom: 1px solid rgba(201,168,76,0.06);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 32px 40px;
+      border-top: 1px solid var(--border);
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      color: rgba(136,146,164,0.5); letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <svg width="28" height="28" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="90" cy="88" r="75" fill="none" stroke="#c9a84c" stroke-width="14"/>
+      <rect x="34" y="108" width="18" height="30" fill="#c9a84c" opacity="0.6" rx="2"/>
+      <rect x="56" y="88" width="18" height="50" fill="#c9a84c" opacity="0.8" rx="2"/>
+      <rect x="78" y="62" width="18" height="76" fill="#c9a84c" rx="2"/>
+      <rect x="100" y="78" width="18" height="60" fill="#c9a84c" opacity="0.8" rx="2"/>
+      <rect x="122" y="98" width="18" height="40" fill="#c9a84c" opacity="0.6" rx="2"/>
+      <line x1="138" y1="134" x2="170" y2="168" stroke="#c9a84c" stroke-width="14" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-brand-name">Quantus<span>Data</span><span style="font-size:0.8em;">.ai</span></span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-header">
+  <span class="page-eyebrow">Legal</span>
+  <h1>Privacy Policy</h1>
+  <p class="effective-date">Effective Date: March 29, 2026 &nbsp;·&nbsp; Last Updated: March 29, 2026</p>
+</div>
+
+<div class="content">
+
+  <div class="highlight-box">
+    <strong>YOUR PRIVACY MATTERS.</strong> This Privacy Policy explains how Existential Gateway, LLC, doing business as QuantusData™ ("we," "us," or "our"), collects, uses, stores, and protects your information when you use our platform at quantusdata.ai. Please read this policy carefully.
+  </div>
+
+  <h2>1. Who We Are</h2>
+  <p><strong>Existential Gateway, LLC DBA QuantusData™</strong> is an AI-powered data intelligence platform registered in the State of Texas. We provide AI-driven analysis tools for business data across multiple industries.</p>
+  <p>For privacy-related inquiries, contact us at:<br>
+    <a href="mailto:existentialgateway@gmail.com" style="color:var(--gold);text-decoration:none;">existentialgateway@gmail.com</a>
+  </p>
+
+  <h2>2. Information We Collect</h2>
+  <h3>2.1 Information You Provide Directly</h3>
+  <ul>
+    <li><strong>Account Information:</strong> Your email address when you register or log in via magic link authentication.</li>
+    <li><strong>Payment Information:</strong> Billing details processed securely by Stripe. We do not store your full credit card number — Stripe handles all payment data.</li>
+    <li><strong>Uploaded Data:</strong> Files you upload to our AI analysis tools (CSV, Excel, PDF, JSON). You are required to remove all personally identifiable information before uploading.</li>
+    <li><strong>Communications:</strong> Messages you send us via email or through the "Report an Issue" feature.</li>
+  </ul>
+
+  <h3>2.2 Information Collected Automatically</h3>
+  <ul>
+    <li><strong>Usage Data:</strong> Pages visited, tools used, features accessed, and time spent on the platform.</li>
+    <li><strong>Device Information:</strong> Browser type, operating system, IP address, and device identifiers.</li>
+    <li><strong>Authentication Logs:</strong> Login timestamps and session information managed through Supabase.</li>
+  </ul>
+
+  <h3>2.3 Information We Do NOT Collect</h3>
+  <ul>
+    <li>We do not collect personally identifiable information from your uploaded datasets — our Terms explicitly prohibit uploading PII.</li>
+    <li>We do not collect biometric data, government ID numbers, or sensitive personal information.</li>
+    <li>We do not use tracking pixels or third-party advertising trackers.</li>
+  </ul>
+
+  <h2>3. How We Use Your Information</h2>
+  <table>
+    <tr>
+      <th>Purpose</th>
+      <th>Data Used</th>
+      <th>Legal Basis</th>
+    </tr>
+    <tr>
+      <td>Providing and improving our services</td>
+      <td>Email, usage data, uploaded files</td>
+      <td>Contract performance</td>
+    </tr>
+    <tr>
+      <td>Processing payments and managing subscriptions</td>
+      <td>Email, billing data (via Stripe)</td>
+      <td>Contract performance</td>
+    </tr>
+    <tr>
+      <td>Authenticating your identity</td>
+      <td>Email address, session tokens</td>
+      <td>Contract performance</td>
+    </tr>
+    <tr>
+      <td>Responding to support requests</td>
+      <td>Email, issue descriptions</td>
+      <td>Legitimate interest</td>
+    </tr>
+    <tr>
+      <td>Sending service-related notifications</td>
+      <td>Email address</td>
+      <td>Legitimate interest</td>
+    </tr>
+    <tr>
+      <td>Analyzing platform usage to improve features</td>
+      <td>Anonymized usage data</td>
+      <td>Legitimate interest</td>
+    </tr>
+    <tr>
+      <td>Complying with legal obligations</td>
+      <td>Any relevant data</td>
+      <td>Legal obligation</td>
+    </tr>
+  </table>
+
+  <h2>4. Uploaded Data & AI Processing</h2>
+  <div class="highlight-box">
+    <strong>IMPORTANT:</strong> Files you upload to our tools are processed by AI for the sole purpose of generating your requested analysis. We do not use your uploaded business data to train AI models, share it with third parties, or use it for any purpose beyond your requested analysis.
+  </div>
+  <p>Uploaded files are:</p>
+  <ul>
+    <li>Processed in real-time to generate your AI analysis.</li>
+    <li>Temporarily stored only as long as necessary to complete your analysis.</li>
+    <li>Not shared with any third parties except our AI processing providers (OpenAI) as required to generate your analysis.</li>
+    <li>Retained for Business Plan subscribers who have enabled the data retention feature (last 10 analyses).</li>
+  </ul>
+
+  <h2>5. Third-Party Services</h2>
+  <p>We use the following trusted third-party services to operate our platform:</p>
+  <table>
+    <tr>
+      <th>Service</th>
+      <th>Purpose</th>
+      <th>Data Shared</th>
+    </tr>
+    <tr>
+      <td><strong>Supabase</strong></td>
+      <td>Authentication and database</td>
+      <td>Email address, subscription status</td>
+    </tr>
+    <tr>
+      <td><strong>Stripe</strong></td>
+      <td>Payment processing</td>
+      <td>Email, billing information</td>
+    </tr>
+    <tr>
+      <td><strong>OpenAI</strong></td>
+      <td>AI analysis engine</td>
+      <td>Uploaded file contents (anonymized)</td>
+    </tr>
+    <tr>
+      <td><strong>DigitalOcean</strong></td>
+      <td>Cloud hosting infrastructure</td>
+      <td>Server logs, IP addresses</td>
+    </tr>
+    <tr>
+      <td><strong>Cloudflare</strong></td>
+      <td>DNS and security</td>
+      <td>IP addresses, traffic data</td>
+    </tr>
+  </table>
+  <p>We do not sell your personal information to any third party. We do not share your information with advertisers or data brokers.</p>
+
+  <h2>6. Data Retention</h2>
+  <ul>
+    <li><strong>Account data</strong> (email, subscription info): Retained for the duration of your account plus 90 days after deletion.</li>
+    <li><strong>Uploaded files:</strong> Deleted after analysis is complete, unless you are a Business Plan subscriber with data retention enabled.</li>
+    <li><strong>Payment records:</strong> Retained for 7 years as required by tax and financial regulations.</li>
+    <li><strong>Support communications:</strong> Retained for 2 years.</li>
+    <li><strong>Usage logs:</strong> Retained for 90 days.</li>
+  </ul>
+
+  <h2>7. Data Security</h2>
+  <p>We implement industry-standard security measures to protect your information, including:</p>
+  <ul>
+    <li>SSL/TLS encryption for all data in transit.</li>
+    <li>Secure authentication via Supabase with magic link (passwordless) login.</li>
+    <li>Payment data handled exclusively by Stripe (PCI DSS compliant).</li>
+    <li>Access controls limiting data access to authorized personnel only.</li>
+    <li>Regular security monitoring of our server infrastructure.</li>
+  </ul>
+  <p>While we take reasonable precautions, no system is completely secure. In the event of a data breach that affects your personal information, we will notify you as required by applicable law.</p>
+
+  <h2>8. Your Rights & Choices</h2>
+  <h3>8.1 Access & Correction</h3>
+  <p>You have the right to request access to the personal information we hold about you and to request correction of any inaccurate information. Contact us at existentialgateway@gmail.com to make such a request.</p>
+
+  <h3>8.2 Deletion</h3>
+  <p>You may request deletion of your account and associated personal data at any time by contacting existentialgateway@gmail.com. Note that we may retain certain information as required by law or for legitimate business purposes (e.g., payment records).</p>
+
+  <h3>8.3 Data Portability</h3>
+  <p>You may request a copy of your personal data in a machine-readable format by contacting us.</p>
+
+  <h3>8.4 Opt-Out of Communications</h3>
+  <p>You may opt out of non-essential communications by contacting us at existentialgateway@gmail.com. Note that we may still send you essential service-related emails (e.g., subscription renewals, security alerts).</p>
+
+  <h3>8.5 Texas Privacy Rights</h3>
+  <p>As a Texas-based company, we comply with applicable Texas privacy laws. Texas residents have the right to know what personal data we collect, request deletion of their data, and opt out of the sale of their personal data (we do not sell personal data).</p>
+
+  <h2>9. Cookies & Tracking</h2>
+  <p>We use minimal cookies necessary to operate the platform, including:</p>
+  <ul>
+    <li><strong>Authentication cookies:</strong> To keep you logged in during your session (managed by Supabase).</li>
+    <li><strong>Preference cookies:</strong> To remember your settings.</li>
+  </ul>
+  <p>We do not use advertising cookies, cross-site tracking, or third-party analytics cookies. You can control cookies through your browser settings, but disabling essential cookies may affect platform functionality.</p>
+
+  <h2>10. Children's Privacy</h2>
+  <p>Our Platform is not intended for use by individuals under the age of 18. We do not knowingly collect personal information from children under 18. If you believe we have inadvertently collected such information, please contact us immediately at existentialgateway@gmail.com and we will delete it promptly.</p>
+
+  <h2>11. International Users</h2>
+  <p>Our Platform is hosted in the United States. If you access the Platform from outside the United States, your information will be transferred to and processed in the United States. By using the Platform, you consent to this transfer. We take steps to ensure your data is handled in accordance with this Privacy Policy regardless of where it is processed.</p>
+
+  <h2>12. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. We will notify you of material changes by updating the "Last Updated" date at the top of this page and, where appropriate, by sending an email notification to the address associated with your account. Your continued use of the Platform after any changes constitutes your acceptance of the updated Privacy Policy.</p>
+
+  <h2>13. Contact Us</h2>
+  <p>If you have any questions, concerns, or requests regarding this Privacy Policy or how we handle your data, please contact us:</p>
+  <p>
+    <strong>Existential Gateway, LLC DBA QuantusData™</strong><br>
+    Email: <a href="mailto:existentialgateway@gmail.com" style="color:var(--gold);text-decoration:none;">existentialgateway@gmail.com</a><br>
+    Website: <a href="https://quantusdata.ai" style="color:var(--gold);text-decoration:none;">quantusdata.ai</a><br>
+    State of Registration: Texas, United States
+  </p>
+  <p>We will respond to all privacy-related requests within 30 days.</p>
+
+</div>
+
+<footer>
+  © 2026 Existential Gateway, LLC · DBA QuantusData™ · All Rights Reserved · quantusdata.ai
+</footer>
+
+</body>
+</html>

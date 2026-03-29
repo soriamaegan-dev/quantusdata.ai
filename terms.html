@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Conditions — QuantusData™.ai</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' fill='%230a1628'/><circle cx='90' cy='88' r='72' fill='none' stroke='%23c9a84c' stroke-width='14'/><rect x='34' y='108' width='18' height='30' fill='%23c9a84c' opacity='0.6' rx='2'/><rect x='56' y='88' width='18' height='50' fill='%23c9a84c' opacity='0.8' rx='2'/><rect x='78' y='62' width='18' height='76' fill='%23c9a84c' rx='2'/><rect x='100' y='78' width='18' height='60' fill='%23c9a84c' opacity='0.8' rx='2'/><rect x='122' y='98' width='18' height='40' fill='%23c9a84c' opacity='0.6' rx='2'/><line x1='138' y1='134' x2='170' y2='168' stroke='%23c9a84c' stroke-width='14' stroke-linecap='round'/></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a1628; --navy-mid: #112240;
+      --gold: #c9a84c; --gold-light: #e8c96a;
+      --white: #f8f9fc; --muted: #8892a4;
+      --border: rgba(201,168,76,0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--navy); color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 16px;
+      line-height: 1.8; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);
+      background-size: 60px 60px; pointer-events: none; z-index: 0;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 40px;
+      background: rgba(10,22,40,0.98); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--white); }
+    .nav-brand-name span { color: var(--gold); }
+    .nav-back { font-size: 0.8rem; color: var(--muted); text-decoration: none; padding: 6px 14px; border: 1px solid var(--border); border-radius: 4px; transition: all 0.2s; }
+    .nav-back:hover { color: var(--gold); border-color: var(--gold); }
+
+    .page-header {
+      position: relative; z-index: 1;
+      padding: 80px 40px 40px; text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      color: var(--gold); letter-spacing: 4px; text-transform: uppercase;
+      margin-bottom: 16px; display: block;
+    }
+    .page-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white); font-weight: 400; margin-bottom: 16px;
+    }
+    .page-header p { color: var(--muted); font-size: 0.9rem; }
+
+    .content {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto;
+      padding: 60px 40px;
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem; color: var(--gold);
+      font-weight: 400; margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 {
+      font-size: 1rem; font-weight: 600;
+      color: var(--white); margin: 24px 0 10px;
+    }
+    p { color: var(--muted); margin-bottom: 16px; font-size: 0.92rem; }
+    ul { color: var(--muted); padding-left: 24px; margin-bottom: 16px; font-size: 0.92rem; }
+    ul li { margin-bottom: 8px; }
+    strong { color: var(--white); }
+    .highlight-box {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 6px 6px 0;
+      padding: 16px 20px; margin: 20px 0;
+      font-size: 0.88rem; color: var(--muted);
+    }
+    .highlight-box strong { color: var(--gold); }
+    .effective-date {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem;
+      color: var(--muted); letter-spacing: 1px;
+    }
+    footer {
+      position: relative; z-index: 1;
+      text-align: center; padding: 32px 40px;
+      border-top: 1px solid var(--border);
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      color: rgba(136,146,164,0.5); letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <svg width="28" height="28" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="90" cy="88" r="75" fill="none" stroke="#c9a84c" stroke-width="14"/>
+      <rect x="34" y="108" width="18" height="30" fill="#c9a84c" opacity="0.6" rx="2"/>
+      <rect x="56" y="88" width="18" height="50" fill="#c9a84c" opacity="0.8" rx="2"/>
+      <rect x="78" y="62" width="18" height="76" fill="#c9a84c" rx="2"/>
+      <rect x="100" y="78" width="18" height="60" fill="#c9a84c" opacity="0.8" rx="2"/>
+      <rect x="122" y="98" width="18" height="40" fill="#c9a84c" opacity="0.6" rx="2"/>
+      <line x1="138" y1="134" x2="170" y2="168" stroke="#c9a84c" stroke-width="14" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-brand-name">Quantus<span>Data</span><span style="font-size:0.8em;">.ai</span></span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page-header">
+  <span class="page-eyebrow">Legal</span>
+  <h1>Terms & Conditions</h1>
+  <p class="effective-date">Effective Date: March 29, 2026 &nbsp;·&nbsp; Last Updated: March 29, 2026</p>
+</div>
+
+<div class="content">
+
+  <div class="highlight-box">
+    <strong>PLEASE READ CAREFULLY.</strong> These Terms & Conditions ("Terms") constitute a legally binding agreement between you and Existential Gateway, LLC, doing business as QuantusData™ ("Company," "we," "us," or "our"). By accessing or using quantusdata.ai and its associated tools and services (collectively, the "Platform"), you agree to be bound by these Terms. If you do not agree, do not use the Platform.
+  </div>
+
+  <h2>1. About QuantusData™</h2>
+  <p>QuantusData™ is an AI-powered data intelligence platform owned and operated by <strong>Existential Gateway, LLC</strong>, a limited liability company registered in the State of Texas. Our Platform provides AI-driven data analysis tools for insurance, healthcare, legal, financial, real estate, retail, education, and other industries.</p>
+  <p>Contact Information:<br>
+    <strong>Existential Gateway, LLC DBA QuantusData™</strong><br>
+    Email: existentialgateway@gmail.com<br>
+    Website: quantusdata.ai
+  </p>
+
+  <h2>2. Eligibility</h2>
+  <p>You must be at least 18 years of age to use the Platform. By using the Platform, you represent and warrant that you are at least 18 years old, have the legal capacity to enter into binding agreements, and are not prohibited from using the Platform under applicable law.</p>
+
+  <h2>3. Subscription Plans & Billing</h2>
+  <h3>3.1 Available Plans</h3>
+  <p>QuantusData™ offers the following subscription plans:</p>
+  <ul>
+    <li><strong>Basic Plan — $29/month:</strong> Access to all AI analysis tools with core analysis tabs. Premium features (Data Cleaning, Multi-Dataset Analysis, AI Chat, Visualizations, and Report Generation) are not included.</li>
+    <li><strong>Professional Plan — $79/month:</strong> Full access to all AI analysis tools and all premium features including Data Cleaning, Multi-Dataset Analysis, AI Chat, Visualizations, and Report Generation.</li>
+    <li><strong>Business Plan — $199/month:</strong> All Professional features plus white-label reports, data retention, advanced export formats, API access, and one custom-built AI analysis tool per year (available after 3 consecutive months of active subscription).</li>
+  </ul>
+
+  <h3>3.2 Billing & Payment</h3>
+  <p>Subscriptions are billed on a monthly recurring basis. Payment is processed securely through Stripe. By subscribing, you authorize us to charge your payment method on a recurring basis until you cancel. All prices are in USD and are subject to applicable taxes.</p>
+
+  <h3>3.3 Cancellation & Refunds</h3>
+  <p>You may cancel your subscription at any time through your account dashboard or by contacting us at existentialgateway@gmail.com. Cancellation takes effect at the end of the current billing period. We do not offer refunds for partial months. All sales are final unless otherwise required by applicable law.</p>
+
+  <h3>3.4 Plan Changes</h3>
+  <p>You may upgrade or downgrade your plan at any time. Upgrades take effect immediately. Downgrades take effect at the start of the next billing cycle.</p>
+
+  <h2>4. AI-Generated Content Disclaimer</h2>
+  <div class="highlight-box">
+    <strong>IMPORTANT:</strong> All analysis, reports, insights, predictions, and recommendations generated by QuantusData™ are produced by artificial intelligence and are intended for <strong>informational purposes only</strong>. They do not constitute professional legal, financial, medical, insurance, or other licensed professional advice.
+  </div>
+  <p>You acknowledge and agree that:</p>
+  <ul>
+    <li>AI-generated results may contain errors, inaccuracies, or outdated information.</li>
+    <li>All AI-generated outputs should be reviewed and verified by a qualified professional before being used in any business decision, legal proceeding, medical treatment, financial transaction, or other consequential action.</li>
+    <li>QuantusData™ makes no warranties, express or implied, regarding the accuracy, completeness, reliability, or fitness for a particular purpose of any AI-generated content.</li>
+    <li>You assume full responsibility for how you use AI-generated outputs.</li>
+  </ul>
+
+  <h2>5. Data Privacy & Uploaded Data</h2>
+  <h3>5.1 Your Data</h3>
+  <p>When you upload data to the Platform, you retain ownership of that data. By uploading data, you grant us a limited, non-exclusive license to process your data solely for the purpose of providing the requested AI analysis.</p>
+
+  <h3>5.2 Prohibited Data</h3>
+  <p>You must not upload any data containing personally identifiable information (PII) including but not limited to: full names, Social Security numbers, dates of birth, addresses, phone numbers, email addresses, financial account numbers, driver's license numbers, medical record numbers, or any other information that could identify a specific individual. By uploading data, you confirm that all PII has been removed.</p>
+
+  <h3>5.3 Data Retention</h3>
+  <p>Uploaded files are processed and not permanently stored beyond what is necessary to complete your requested analysis, except for Business Plan subscribers who have opted into the data retention feature. We do not sell, share, or use your uploaded data for any purpose other than providing the requested services.</p>
+
+  <h2>6. Acceptable Use Policy</h2>
+  <p>You agree not to use the Platform to:</p>
+  <ul>
+    <li>Upload, process, or analyze data that you do not have the legal right to use.</li>
+    <li>Violate any applicable federal, state, or local laws or regulations.</li>
+    <li>Attempt to reverse-engineer, decompile, or extract the underlying AI models or proprietary algorithms.</li>
+    <li>Resell, sublicense, or redistribute access to the Platform without our written consent.</li>
+    <li>Use the Platform to generate content intended to deceive, defraud, or harm any person or entity.</li>
+    <li>Attempt to circumvent any security measures, authentication systems, or access controls.</li>
+    <li>Use automated bots, scrapers, or scripts to access the Platform without our prior written approval.</li>
+    <li>Upload malicious code, viruses, or any harmful content.</li>
+  </ul>
+
+  <h2>7. Intellectual Property</h2>
+  <p>All content, features, functionality, designs, logos, trademarks, and proprietary algorithms on the Platform — including QuantusData™, Existential Gateway™, and associated branding — are the exclusive property of Existential Gateway, LLC and are protected by United States and international intellectual property laws.</p>
+  <p>You may not copy, reproduce, distribute, modify, create derivative works of, publicly display, or exploit any portion of the Platform without our express written permission. AI-generated analysis outputs are licensed to you for your personal or internal business use only and may not be resold or redistributed.</p>
+
+  <h2>8. Business Plan — Custom Tool Terms</h2>
+  <p>Business Plan subscribers are eligible to receive one (1) custom-built AI analysis tool per year of continuous subscription, subject to the following conditions:</p>
+  <ul>
+    <li>Eligibility begins after 3 consecutive months of active Business Plan subscription.</li>
+    <li>Custom tool specifications must be submitted in writing to existentialgateway@gmail.com.</li>
+    <li>Development timeline will be communicated upon receipt of specifications.</li>
+    <li>Custom tools remain the intellectual property of Existential Gateway, LLC but are licensed exclusively to the subscriber during their active subscription.</li>
+    <li>If the subscription is cancelled, access to the custom tool will be terminated.</li>
+  </ul>
+
+  <h2>9. Limitation of Liability</h2>
+  <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, EXISTENTIAL GATEWAY, LLC AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, BUSINESS, OR GOODWILL, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF OR INABILITY TO USE THE PLATFORM, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+  <p>OUR TOTAL CUMULATIVE LIABILITY TO YOU FOR ANY CLAIMS ARISING UNDER THESE TERMS SHALL NOT EXCEED THE AMOUNT YOU PAID TO US IN THE THREE (3) MONTHS PRECEDING THE CLAIM.</p>
+
+  <h2>10. Indemnification</h2>
+  <p>You agree to indemnify, defend, and hold harmless Existential Gateway, LLC and its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses (including reasonable attorney's fees) arising out of or in any way connected with your use of the Platform, your violation of these Terms, your violation of any applicable law, or your infringement of any third-party rights.</p>
+
+  <h2>11. Dispute Resolution & Mandatory Arbitration</h2>
+  <div class="highlight-box">
+    <strong>PLEASE READ THIS SECTION CAREFULLY.</strong> It affects your legal rights, including your right to file a lawsuit in court.
+  </div>
+  <h3>11.1 Informal Resolution</h3>
+  <p>Before initiating arbitration, you agree to first contact us at existentialgateway@gmail.com and attempt to resolve the dispute informally. We will attempt to resolve the dispute within 30 days of receiving your notice.</p>
+
+  <h3>11.2 Binding Arbitration</h3>
+  <p>If informal resolution fails, any dispute, claim, or controversy arising out of or relating to these Terms or the Platform shall be resolved exclusively through binding individual arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules. The arbitration shall take place in Texas, and the arbitrator's decision shall be final and binding.</p>
+
+  <h3>11.3 Class Action Waiver</h3>
+  <p><strong>YOU AND EXISTENTIAL GATEWAY, LLC AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE ACTION.</strong> The arbitrator may not consolidate more than one person's claims.</p>
+
+  <h3>11.4 Exceptions</h3>
+  <p>Either party may seek emergency injunctive relief in a court of competent jurisdiction in Texas to prevent irreparable harm pending arbitration.</p>
+
+  <h2>12. Governing Law</h2>
+  <p>These Terms shall be governed by and construed in accordance with the laws of the State of Texas, without regard to its conflict of law provisions. Any disputes not subject to arbitration shall be resolved exclusively in the state or federal courts located in Texas.</p>
+
+  <h2>13. Modifications to Terms</h2>
+  <p>We reserve the right to modify these Terms at any time. We will notify you of material changes by updating the "Last Updated" date at the top of this page and, where appropriate, by sending an email notification. Your continued use of the Platform after any changes constitutes your acceptance of the new Terms.</p>
+
+  <h2>14. Termination</h2>
+  <p>We reserve the right to suspend or terminate your account and access to the Platform at our sole discretion, without notice, for conduct that we believe violates these Terms or is harmful to other users, us, third parties, or for any other reason. Upon termination, your right to use the Platform will immediately cease.</p>
+
+  <h2>15. Disclaimer of Warranties</h2>
+  <p>THE PLATFORM IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR UNINTERRUPTED SERVICE. WE DO NOT WARRANT THAT THE PLATFORM WILL BE ERROR-FREE OR THAT DEFECTS WILL BE CORRECTED.</p>
+
+  <h2>16. Entire Agreement</h2>
+  <p>These Terms, together with our Privacy Policy, constitute the entire agreement between you and Existential Gateway, LLC regarding your use of the Platform and supersede all prior agreements and understandings.</p>
+
+  <h2>17. Contact Us</h2>
+  <p>If you have any questions about these Terms, please contact us at:</p>
+  <p>
+    <strong>Existential Gateway, LLC DBA QuantusData™</strong><br>
+    Email: <a href="mailto:existentialgateway@gmail.com" style="color:var(--gold);text-decoration:none;">existentialgateway@gmail.com</a><br>
+    Website: <a href="https://quantusdata.ai" style="color:var(--gold);text-decoration:none;">quantusdata.ai</a>
+  </p>
+
+</div>
+
+<footer>
+  © 2026 Existential Gateway, LLC · DBA QuantusData™ · All Rights Reserved · quantusdata.ai
+</footer>
+
+</body>
+</html>
