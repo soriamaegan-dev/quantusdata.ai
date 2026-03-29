@@ -438,7 +438,7 @@
   const SUPABASE_URL = 'https://jolvnzhwwchbkuzkeqjt.supabase.co'
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbHZuemh3d2NoYmt1emtlcWp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDg5NDYsImV4cCI6MjA5MDI4NDk0Nn0.gNd-q8SjDjMKBiYZtQALhqQvTsbTnQuQj9FZG4q3lIs'
 
-  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: true, storageKey: 'quantusdata-auth' } })
 
   async function sendMagicLink() {
     const email = document.getElementById('email-input').value.trim()
@@ -464,16 +464,16 @@
   }
 
   const ALL_TOOLS = [
-    { icon: '🛡️⚖️', name: 'Insurance Arbitration Assistant', desc: 'Liability reconstruction, repair estimates, rental disputes, total loss, bodily injury analysis.', url: 'https://arbitration.existentialgateway.com' },
-    { icon: '🛡️', name: 'Insurance Data Analyzer', desc: 'Claims analysis, fraud detection, loss ratio tracking, underwriting and risk scoring.', url: 'https://insurance.existentialgateway.com' },
-    { icon: '🏥', name: 'Healthcare & Medical Analyzer', desc: 'Clinical data analysis, disease patterns, medical billing audit, patient outcomes.', url: 'https://healthcare.existentialgateway.com' },
-    { icon: '⚖️', name: 'Legal & Law Firm Analyzer', desc: 'Contract analysis, case outcome prediction, legal research, deposition review.', url: 'https://legal.existentialgateway.com' },
-    { icon: '💹', name: 'Financial & Market Analyzer', desc: 'Market trends, portfolio risk, financial ratios, fraud detection, economic indicators.', url: 'https://financial.existentialgateway.com' },
-    { icon: '💼', name: 'Investment Analyzer', desc: 'Stocks, crypto, ETFs, prediction markets including Polymarket and Kalshi.', url: 'https://investment.existentialgateway.com' },
-    { icon: '🏠', name: 'Real Estate Analyzer', desc: 'AVM property valuation, ROI calculator, rental yield, 10-year forecasting.', url: 'https://realestate.existentialgateway.com' },
-    { icon: '🛒', name: 'Retail & E-Commerce Analyzer', desc: 'RFM segmentation, churn prediction, price optimization, customer lifetime value.', url: 'https://retail.existentialgateway.com' },
-    { icon: '🎓', name: 'Education Analyzer', desc: 'Student performance analysis, dropout risk prediction, 4 ML models.', url: 'https://education.existentialgateway.com' },
-    { icon: '🚔', name: 'Crime & Law Enforcement Analyzer', desc: 'Predictive crime mapping, case correlation, recidivism scoring.', url: 'https://crime.existentialgateway.com' },
+    { icon: '🛡️⚖️', name: 'Insurance Arbitration Assistant', desc: 'Liability reconstruction, repair estimates, rental disputes, total loss, bodily injury analysis.', url: '/tools/arbitration' },
+    { icon: '🛡️', name: 'Insurance Data Analyzer', desc: 'Claims analysis, fraud detection, loss ratio tracking, underwriting and risk scoring.', url: '/tools/insurance' },
+    { icon: '🏥', name: 'Healthcare & Medical Analyzer', desc: 'Clinical data analysis, disease patterns, medical billing audit, patient outcomes.', url: '/tools/healthcare' },
+    { icon: '⚖️', name: 'Legal & Law Firm Analyzer', desc: 'Contract analysis, case outcome prediction, legal research, deposition review.', url: '/tools/legal' },
+    { icon: '💹', name: 'Financial & Market Analyzer', desc: 'Market trends, portfolio risk, financial ratios, fraud detection, economic indicators.', url: '/tools/financial' },
+    { icon: '💼', name: 'Investment Analyzer', desc: 'Stocks, crypto, ETFs, prediction markets including Polymarket and Kalshi.', url: '/tools/investment' },
+    { icon: '🏠', name: 'Real Estate Analyzer', desc: 'AVM property valuation, ROI calculator, rental yield, 10-year forecasting.', url: '/tools/realestate' },
+    { icon: '🛒', name: 'Retail & E-Commerce Analyzer', desc: 'RFM segmentation, churn prediction, price optimization, customer lifetime value.', url: '/tools/retail' },
+    { icon: '🎓', name: 'Education Analyzer', desc: 'Student performance analysis, dropout risk prediction, 4 ML models.', url: '/tools/education' },
+    { icon: '🚔', name: 'Crime & Law Enforcement Analyzer', desc: 'Predictive crime mapping, case correlation, recidivism scoring.', url: '/tools/crime' },
   ]
 
   function renderTools(plan, tools) {
@@ -487,7 +487,7 @@
     let html = '<div class="tools-section"><h3>Your AI Analysis Tools</h3><p>Click any tool to launch it.</p><div class="dashboard-tools-grid">'
     
     tools.forEach(tool => {
-      html += `<a href="${tool.url}" target="_blank" class="dashboard-tool-card">
+      html += `<a href="javascript:void(0)" onclick="openTool('${tool.url}')" class="dashboard-tool-card">
         <span class="tool-card-icon">${tool.icon}</span>
         <p class="tool-card-name">${tool.name}</p>
         <p class="tool-card-desc">${tool.desc}</p>
@@ -543,6 +543,10 @@
         document.getElementById('dashboard-page').style.display = 'none'
       }
     })
+  }
+
+  function openTool(url) {
+    window.open(url, '_blank')
   }
 
   init()
