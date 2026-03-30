@@ -468,17 +468,31 @@
     document.getElementById('dashboard-page').style.display = 'none'
   }
 
+  // Free tools (no subscription required)
+  const FREE_TOOLS = [
+    { icon: '📋', name: 'Public Accountability Tracker', desc: 'Track elected officials, government spending, and public accountability metrics.', url: '/accountability_index.html', tier: 'free' },
+    { icon: '💰', name: 'National Debt Clock', desc: 'Real-time US national debt tracker with historical data and projections.', url: '/debtclock_index.html', tier: 'free' },
+    { icon: '📰', name: 'Media Bias Analyzer', desc: 'AI-powered media bias detection and analysis across news sources.', url: '/mediabias_index.html', tier: 'free' },
+  ]
+
+  // Gateway Plan tools ($9.99/mo)
+  const GATEWAY_TOOLS = [
+    { icon: '⏳', name: 'End Times Prophecy Tracker', desc: 'Biblical prophecy tracking, timeline analysis, and fulfillment mapping.', url: '/endtimes_index.html', tier: 'gateway' },
+    { icon: '🔄', name: 'Monetary Reset Tracker', desc: 'Global monetary reset indicators, BRICS analysis, and currency transition tracking.', url: '/monetaryreset_index.html', tier: 'gateway' },
+  ]
+
+  // Basic+ tools (Basic $29/mo, Professional $79/mo, Business $199/mo)
   const ALL_TOOLS = [
-    { icon: '🛡️⚖️', name: 'Insurance Arbitration Assistant', desc: 'Liability reconstruction, repair estimates, rental disputes, total loss, bodily injury analysis.', url: '/tools/arbitration' },
-    { icon: '🛡️', name: 'Insurance Data Analyzer', desc: 'Claims analysis, fraud detection, loss ratio tracking, underwriting and risk scoring.', url: '/tools/insurance' },
-    { icon: '🏥', name: 'Healthcare & Medical Analyzer', desc: 'Clinical data analysis, disease patterns, medical billing audit, patient outcomes.', url: '/tools/healthcare' },
-    { icon: '⚖️', name: 'Legal & Law Firm Analyzer', desc: 'Contract analysis, case outcome prediction, legal research, deposition review.', url: '/tools/legal' },
-    { icon: '💹', name: 'Financial & Market Analyzer', desc: 'Market trends, portfolio risk, financial ratios, fraud detection, economic indicators.', url: '/tools/financial' },
-    { icon: '💼', name: 'Investment Analyzer', desc: 'Stocks, crypto, ETFs, prediction markets including Polymarket and Kalshi.', url: '/tools/investment' },
-    { icon: '🏠', name: 'Real Estate Analyzer', desc: 'AVM property valuation, ROI calculator, rental yield, 10-year forecasting.', url: '/tools/realestate' },
-    { icon: '🛒', name: 'Retail & E-Commerce Analyzer', desc: 'RFM segmentation, churn prediction, price optimization, customer lifetime value.', url: '/tools/retail' },
-    { icon: '🎓', name: 'Education Analyzer', desc: 'Student performance analysis, dropout risk prediction, 4 ML models.', url: '/tools/education' },
-    { icon: '🚔', name: 'Crime & Law Enforcement Analyzer', desc: 'Predictive crime mapping, case correlation, recidivism scoring.', url: '/tools/crime' },
+    { icon: '🛡️⚖️', name: 'Insurance Arbitration Assistant', desc: 'Liability reconstruction, repair estimates, rental disputes, total loss, bodily injury analysis.', url: '/arbitration_index.html', tier: 'basic' },
+    { icon: '🛡️', name: 'Insurance Data Analyzer', desc: 'Claims analysis, fraud detection, loss ratio tracking, underwriting and risk scoring.', url: '/insurance_index.html', tier: 'basic' },
+    { icon: '🏥', name: 'Healthcare & Medical Analyzer', desc: 'Clinical data analysis, disease patterns, medical billing audit, patient outcomes.', url: '/healthcare_index.html', tier: 'basic' },
+    { icon: '⚖️', name: 'Legal & Law Firm Analyzer', desc: 'Contract analysis, case outcome prediction, legal research, deposition review.', url: '/legal_index.html', tier: 'basic' },
+    { icon: '💹', name: 'Financial & Market Analyzer', desc: 'Market trends, portfolio risk, financial ratios, fraud detection, economic indicators.', url: '/financial_index.html', tier: 'basic' },
+    { icon: '💼', name: 'Investment Analyzer', desc: 'Stocks, crypto, ETFs, prediction markets including Polymarket and Kalshi.', url: '/investment_index.html', tier: 'basic' },
+    { icon: '🏠', name: 'Real Estate Analyzer', desc: 'AVM property valuation, ROI calculator, rental yield, 10-year forecasting.', url: '/realestate_index.html', tier: 'basic' },
+    { icon: '🛒', name: 'Retail & E-Commerce Analyzer', desc: 'RFM segmentation, churn prediction, price optimization, customer lifetime value.', url: '/retail_index.html', tier: 'basic' },
+    { icon: '🎓', name: 'Education Analyzer', desc: 'Student performance analysis, dropout risk prediction, 4 ML models.', url: '/education_index.html', tier: 'basic' },
+    { icon: '🚔', name: 'Crime & Law Enforcement Analyzer', desc: 'Predictive crime mapping, case correlation, recidivism scoring.', url: '/crime_index.html', tier: 'basic' },
   ]
 
   function renderTools(plan, tools) {
@@ -493,19 +507,15 @@
 
     const isPremium = ['professional', 'business', 'owner'].includes(plan)
     const isBusiness = ['business', 'owner'].includes(plan)
+    const hasGateway = ['gateway', 'basic', 'professional', 'business', 'owner'].includes(plan)
+    const hasBasic = ['basic', 'professional', 'business', 'owner'].includes(plan)
 
-    let html = '<div class="tools-section"><h3>Your AI Analysis Tools</h3><p>Click any tool to launch it.</p>'
+    let html = ''
 
-    if (isBusiness) {
-      html += `<div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:8px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;"><span style="font-size:1.4rem;">⭐</span><div><p style="color:#f8f9fc;font-weight:600;font-size:0.9rem;margin:0;">Business Plan Benefits</p><p style="color:#8892a4;font-size:0.78rem;margin:4px 0 0;">Data retention · 1 custom tool/year · White-label reports (Coming Soon) · API access (Coming Soon)</p></div><a href="mailto:existentialgateway@gmail.com?subject=Custom Tool Request" style="margin-left:auto;background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#0a1628;padding:8px 18px;border-radius:4px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;">Request Custom Tool →</a></div>`
-    }
-
-    if (plan === 'basic') {
-      html += `<div style="background:rgba(17,34,64,0.6);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;"><p style="color:#8892a4;font-size:0.82rem;margin:0;">⭐ Upgrade to <strong style="color:#c9a84c;">Professional</strong> to unlock Data Cleaning, Multi-Dataset, AI Chat, Visualizations & Reports.</p><a href="index.html#pricing" style="background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#0a1628;padding:8px 18px;border-radius:4px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;">Upgrade Now →</a></div>`
-    }
-
+    // Always show free tools
+    html += '<div class="tools-section"><h3 style="margin-bottom:4px;">Free Tools</h3><p style="color:#8892a4;font-size:0.82rem;margin-bottom:16px;">Available to everyone — no subscription required.</p>'
     html += '<div class="dashboard-tools-grid">'
-    tools.forEach(tool => {
+    FREE_TOOLS.forEach(tool => {
       html += `<a href="javascript:void(0)" onclick="openTool('${tool.url}')" class="dashboard-tool-card">
         <span class="tool-card-icon">${tool.icon}</span>
         <p class="tool-card-name">${tool.name}</p>
@@ -514,6 +524,50 @@
       </a>`
     })
     html += '</div></div>'
+
+    // Gateway tools
+    if (hasGateway) {
+      html += '<div class="tools-section" style="margin-top:32px;"><h3 style="margin-bottom:4px;">Gateway Tools</h3><p style="color:#8892a4;font-size:0.82rem;margin-bottom:16px;">Included with The Gateway Plan and above.</p>'
+      html += '<div class="dashboard-tools-grid">'
+      GATEWAY_TOOLS.forEach(tool => {
+        html += `<a href="javascript:void(0)" onclick="openTool('${tool.url}')" class="dashboard-tool-card">
+          <span class="tool-card-icon">${tool.icon}</span>
+          <p class="tool-card-name">${tool.name}</p>
+          <p class="tool-card-desc">${tool.desc}</p>
+          <span class="tool-card-launch">Launch Tool →</span>
+        </a>`
+      })
+      html += '</div></div>'
+    } else {
+      html += '<div class="tools-section" style="margin-top:32px;"><h3 style="margin-bottom:4px;">Gateway Tools</h3><div style="background:rgba(17,34,64,0.6);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;"><p style="color:#8892a4;font-size:0.82rem;margin:0;">🔒 Upgrade to <strong style="color:#c9a84c;">The Gateway Plan ($9.99/mo)</strong> to unlock End Times Tracker & Monetary Reset Tracker.</p><a href="index.html#pricing" style="background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#0a1628;padding:8px 18px;border-radius:4px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;">Upgrade →</a></div></div>'
+    }
+
+    // Basic+ analysis tools
+    if (hasBasic) {
+      html += '<div class="tools-section" style="margin-top:32px;"><h3 style="margin-bottom:4px;">AI Analysis Tools</h3><p style="color:#8892a4;font-size:0.82rem;margin-bottom:16px;">Click any tool to launch it.</p>'
+
+      if (isBusiness) {
+        html += `<div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:8px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;"><span style="font-size:1.4rem;">⭐</span><div><p style="color:#f8f9fc;font-weight:600;font-size:0.9rem;margin:0;">Business Plan Benefits</p><p style="color:#8892a4;font-size:0.78rem;margin:4px 0 0;">Data retention · 1 custom tool/year · White-label reports (Coming Soon) · API access (Coming Soon)</p></div><a href="mailto:existentialgateway@gmail.com?subject=Custom Tool Request" style="margin-left:auto;background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#0a1628;padding:8px 18px;border-radius:4px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;">Request Custom Tool →</a></div>`
+      }
+
+      if (plan === 'basic') {
+        html += `<div style="background:rgba(17,34,64,0.6);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;"><p style="color:#8892a4;font-size:0.82rem;margin:0;">⭐ Upgrade to <strong style="color:#c9a84c;">Professional</strong> to unlock Data Cleaning, Multi-Dataset, AI Chat, Visualizations & Reports.</p><a href="index.html#pricing" style="background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#0a1628;padding:8px 18px;border-radius:4px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;">Upgrade Now →</a></div>`
+      }
+
+      html += '<div class="dashboard-tools-grid">'
+      tools.forEach(tool => {
+        html += `<a href="javascript:void(0)" onclick="openTool('${tool.url}')" class="dashboard-tool-card">
+          <span class="tool-card-icon">${tool.icon}</span>
+          <p class="tool-card-name">${tool.name}</p>
+          <p class="tool-card-desc">${tool.desc}</p>
+          <span class="tool-card-launch">Launch Tool →</span>
+        </a>`
+      })
+      html += '</div></div>'
+    } else {
+      html += '<div class="tools-section" style="margin-top:32px;"><h3 style="margin-bottom:4px;">AI Analysis Tools</h3><div style="background:rgba(17,34,64,0.6);border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;"><p style="color:#8892a4;font-size:0.82rem;margin:0;">🔒 Upgrade to <strong style="color:#c9a84c;">Basic Plan ($29/mo)</strong> to access 10 professional AI analysis tools.</p><a href="index.html#pricing" style="background:linear-gradient(135deg,#c9a84c,#e8c96a);color:#0a1628;padding:8px 18px;border-radius:4px;font-size:0.78rem;font-weight:700;text-decoration:none;white-space:nowrap;">View Plans →</a></div></div>'
+    }
+
     document.getElementById('dashboard-content').innerHTML = html
   }
 
